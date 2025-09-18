@@ -173,49 +173,68 @@ The fika system shall provide a smooth and responsive experience for users. This
     * 5.4.7.1 The system shall store up to 1 million cafe entries and 10 million user reviews without requiring major database restructuring.
 
 
+## **5.5 Environment Requirements**: 
+The following subsections describe the hardware, software, and other resources required for the **development** and **deployment/execution** of the fika application. These requirements reflect the finalized environment for the project rather than preliminary design assumptions.  
 
+---
 
+### 5.5.1 Development Environment Requirements  
 
+Following are the hardware requirements for development of fika:  
 
+| Category          | Requirement                              |  
+|-------------------|------------------------------------------|  
+| Processor         | Intel i5 (8th Gen) or Apple M1 or higher |  
+| Hard Drive Space  | 20 GB free space                         |  
+| RAM               | 8 GB minimum, 16 GB recommended          |  
+| Display           | 1280x800 resolution or higher            |  
+| Network           | Broadband internet connection required   |  
 
+Following are the software requirements for development of fika:  
 
-## **1.3 Preliminary Design Description**
+| Category          | Requirement                                   |  
+|-------------------|-----------------------------------------------|  
+| Operating System  | macOS 12+, Windows 10+, or Ubuntu 22.04       |  
+| Framework         | Next.js (latest LTS)                          |  
+| Database          | PostgreSQL 15+                                |  
+| Hosting Tools     | Vercel CLI, Supabase CLI                      |  
+| Authentication    | Firebase SDK                                  |  
+| API Integration   | OpenStreetMaps API, optional Google Places API |  
+| Visualization     | Vega/Vega-Lite                                |  
+| Programming Tools | Node.js 18+, npm or yarn, Git, VS Code        |  
 
-Fika will be an application that primarily relies on the iPhone as the place of interaction for the user’s to initiate certain actions, such as view flashcards and study decks, and have more direct interactions with the system. 
+**Notes:**  
+- Node.js 18+ is required for compatibility with Next.js.  
+- PostgreSQL 15+ provides advanced indexing and JSONB support, necessary for cafe metadata.  
+- Supabase is chosen for ease of integration with PostgreSQL and real-time APIs.  
 
-### **System Architecture Design**
-<img src="img/prelim_system_architecture.png" alt ="diagram of system architecture" height="250">
+---
 
-As seen in the figure above, the user will interact directly with the iPhone as the main interface. The MVVM structure of the iOS app will handle user interaction between the software and the consumer, while the Firebase Auth will communicate with the app to manage user login via Google sign in and email/password connection. The app will also interact with the Firestore Database to store user data, including but not limited to: the user themself, user created flashcards, IDs of saved flashcards, and known friends. 
+### 5.5.2 Deployment / Execution Environment Requirements  
 
-### **User Flow Diagram**
-<img src="img/prelim_user_flow.jpg" alt ="diagram of user flow" height="250">
+Following are the hardware requirements for deployment of fika:  
 
-The user will follow this general outline to navigate through StudyStacks. Users will be presented with a splash screen upon opening the app while not signed in, and be presented with the option to either sign back in, or sign up for an account. Signing back in will lead the user directly to the dashboard, whereas signing up will take the user through the onboarding process before navigating to the dashboard. Here, they can continue to navigate to the social section to see their friend’s progress, the flashcard library to view all public and created decks, or to their profile to see their saved decks, current progress in studying, and access their settings. 
+| Category          | Requirement                                   |  
+|-------------------|-----------------------------------------------|  
+| Hosting Platform  | Vercel (frontend), Supabase (backend + DB)    |  
+| Processor         | Cloud-hosted; minimum 2 vCPUs                 |  
+| RAM               | 4 GB minimum, scalable with usage             |  
+| Storage           | 50 GB initial database storage, scalable      |  
+| Network           | Public internet access with HTTPS/TLS         |  
 
-## **1.4 Preliminary Development Schedule**
+Following are the software requirements for deployment of fika:  
 
-For this project, we decided on scheduling 4 two-week sprints (with some wiggle-room at the end for a 5th sprint if needed), with once a week stand-ups. With this in mind, our SWAG of a timeline is illustrated below: 
+| Category          | Requirement                                   |  
+|-------------------|-----------------------------------------------|  
+| Operating System  | Linux-based (cloud managed)                   |  
+| Database          | PostgreSQL (managed via Supabase)             |  
+| Hosting Tools     | Vercel deployment pipelines                   |  
+| Authentication    | Firebase Auth                                 |  
+| Analytics         | Vega/Vega-Lite rendering in frontend          |  
 
-* **Sprint 1**: Set up project repository, implement Firebase authentication, design UI layouts  
-* **Sprint 2**: Implement basic flashcard mechanisms, user profiles, and onboarding  
-* **Sprint 3**: Implement deck sharing, social features, and badges  
-* **Sprint 4**: Implement spaced repetition system, test for edge cases and errors  
-* (if needed) **Sprint 5**: Clean up, final testing, bug fixes, and submission
+**Notes:**  
+- Hosting on Vercel ensures automatic CI/CD integration for frontend code changes.  
+- Supabase provides managed PostgreSQL and authentication integration, reducing setup overhead.  
+- The use of OpenStreetMaps API is justified as a free and open alternative to commercial mapping APIs, ensuring cost-effectiveness for the project.  
+- If APIs such as Google Places or Gemini are adopted, they will be included only if their free tiers meet usage requirements.  
 
-An example of our Sprint 1 development progress can be seen below:
-
-<img src="img/prelim_sprint_tracker.png" alt ="Trello sprint 1 tracking" height="250">
-<img src="img/prelim_sprint_backlog.png" alt ="Trello sprint backlog" height="250">
-
-## **1.5 Development Tools**
-
-To efficiently develop, test, and manage the iOS application, a combination of software, design, and project management tools will be utilized. These tools will support the frontend and backend development process and are outlined below. 
-
-* **Design & Prototyping:** Figma  
-* **Programming Language & Framework:** SwiftUI, Swift (in Xcode)  
-* **Backend & Database:** Google Firebase (Authentication and Firestore)  
-* **Version Control:** GitHub  
-* **Project Management Tool:** Trello   
-* **Testing Tools:** Xcode Simulator  
-* **Editor**: Xcode
