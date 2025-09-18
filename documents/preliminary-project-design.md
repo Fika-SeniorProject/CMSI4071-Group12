@@ -5,7 +5,7 @@ CMSI 4071: Senior Project I
         
 Collaborators: Giselle Eliasi, Jillian Hunter, Kate Galvin, Ahtziri Gutierrez       
 
-## **1.1 Project Overview** 
+## **1.1 Introduction** 
 
 **Project Name:** Fika
 
@@ -34,7 +34,7 @@ Secondary users include students and remote works.
 
 ## **1.2 Preliminary Project Requirements**
 
-**CSCI Components** 
+**1.2 CSCI Components** 
 
 * User Sign In/Sign Up   
   * The user sign up will allow the user to create a new account to which all their data will be saved  
