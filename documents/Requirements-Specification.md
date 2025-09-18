@@ -140,38 +140,37 @@ The fika system shall provide a smooth and responsive experience for users. This
 * **5.4.1 Search Results Returned in 3 Seconds**:
   * Description: When users perform a search or apply filters in the Discover Page, the results must load quickly to maintain usability.
   * Requirements:       
-    *5.4.1.1 The system shall return search or filter results within 3 seconds of the user submitting a query under normal operating conditions.
+    * 5.4.1.1 The system shall return search or filter results within 3 seconds of the user submitting a query under normal operating conditions.
 
 * **5.4.2 Cafe Page Load Performance**:
   * Description: When users click on an individual cafe, the details page should load quickly to avoid frustration.     
-  * Requirements:
-    *5.4.2.1 The system shall load a cafe’s information (reviews, details, and metadata) within 2 seconds under normal operating conditions.      
+  * Requirements:     
+    * 5.4.2.1 The system shall load a cafe’s information (reviews, details, and metadata) within 2 seconds under normal operating conditions.      
 
 * **5.4.3 Authentication Performance**:
   * Description: Logging into the system should be responsive to encourage user adoption.          
   * Requirements:      
-    *5.4.3.1 The system shall complete the login process within 3 seconds.       
+    * 5.4.3.1 The system shall complete the login process within 3 seconds.       
 
 * **5.4.4 Visualization Performance**:
   * Description: The data visualization subsystem must provide responsive chart rendering when aggregating reviews and cafe data.          
   * Requirements:      
-    *5.4.4.1 The system shall render visualizations (e.g., trends, ratings) within 5 seconds after data retrieval.      
+    * 5.4.4.1 The system shall render visualizations (e.g., trends, ratings) within 5 seconds after data retrieval.      
  
 * **5.4.5 Scalability Requirement**:
   * Description: The system must support growth in user traffic without major performance degradation.          
-  * Requirements:      
-    *5.4.5.1 The system shall support at least 5,000 concurrent users without exceeding specified response time limits.                  
+  * Requirements:       
+    * 5.4.5.1 The system shall support at least 5,000 concurrent users without exceeding specified response time limits.                  
 
 * **5.4.6 Availability Requirement**:
   * Description: As a web app, fika should remain available and reliable for users.                  
-  * Requirements:
-    *5.4.6.1 The system shall maintain 99% uptime availability over a monthly period, excluding scheduled maintenance.
+  * Requirements:     
+    * 5.4.6.1 The system shall maintain 99% uptime availability over a monthly period, excluding scheduled maintenance.
  
 * **5.4.7 Storage Requirement**:
   * Description: The system must efficiently handle storage for cafes, reviews, and user data.                       
-  * Requirements:
-    *5.4.7.1 The system shall store up to 1 million cafe entries and 10 million user reviews without requiring major database restructuring.      
-
+  * Requirements:     
+    * 5.4.7.1 The system shall store up to 1 million cafe entries and 10 million user reviews without requiring major database restructuring.
 
 
 
