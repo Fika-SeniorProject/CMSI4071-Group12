@@ -134,7 +134,7 @@ Each subsection below corresponds to a CSC defined in the CSCI breakdown.
       * 5.3.5.3 The system shall automatically redeploy on updates using CI/CD pipelines.      
 
 
-## **5.4 Performance Requirementss** 
+## **5.4 Performance Requirements** 
 The fika system shall provide a smooth and responsive experience for users. This section specifies the measurable performance requirements for system responsiveness, scalability, usability, and resource usage.
 
 * **5.4.1 Search Results Returned in 3 Seconds**:
