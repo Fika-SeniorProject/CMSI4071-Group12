@@ -33,6 +33,8 @@ Secondary users include students and remote works.
 * Firebase Authentication → supports Google sign-in and email/password sign in  
 
 ## **5.2 CSCI Components** 
+CSCI fika is composed of the following CSCs:       
+
 
 * **5.2.1 Frontend CSC**: The user-facing portion of fika, built with Next.js. It is responsible for rendering the interface where users can browse, filter, and review cafes.      
 
@@ -79,26 +81,72 @@ Secondary users include students and remote works.
   * 5.2.5.1 Hosting CSU — Manages CI/CD pipelines and deployment.                          
     * VercelDeploy module — Handles frontend deployment.
     * SupabaseDeploy module — Handles backend services.       
-   
-### **User Stories**
 
-* User \+ Profile  
-  * Account → As a student, I want to be able to **have an account** that saves all of my flashcards and other data.  
-  * Onboarding → As a student with specific study interests, I want to **tailor my experience** in the app to those interests.  
-  * Favorite Decks → As a studious learner, I want to save and quickly access my **favorite decks** so that I can efficiently review my most relevant materials.  
-  * Streak → As an active learner, I want to **track my daily study streak** so that I can stay motivated and maintain a consistent study habit.  
-  * Badges → As an achievement motivated student, I want to earn **badges** so I can feel rewarded as I accomplish studying sessions.  
-* Flashcards  
-  * Create Decks → As a learner, I want the ability to **create custom decks** so that I can study what’s relevant to my subject of interest and review specific concepts.  
-  * Edit Decks → As an occasionally careless learner, I want the ability to **edit my decks** so that I can expand on my decks, fix any mistakes I make, and keep my content up to date.  
-  * Edit Flashcards → As a learner who makes mistakes, I want the ability to **edit my flashcards** so that I can edit any typos.  
-  * Delete Decks → As a learner with evolving studying needs, I want the **ability to delete** decks so that my profile is not crowded with decks I am not using.  
-  * Flip Flashcards → As a careful learner, I want the ability to **flip flashcards** so I can double check that my response matches the definition to test my knowledge.  
-  * Delete Flashcards → As an evolving learner, I want to be able to **delete flashcards** so that I can remove any outdated cards.   
-* Social  
-  * Leaderboard → As a competitive learner, I want to have a public **leaderboard** so I can compare my performance to my friends and stay motivated.  
-  * Friends → As a socially connected learner, I want to add and interact with **friends** so that I can study collaboratively and stay engaged.   
-  * Shared Decks → As a socially connected learner, I want to be able **to see decks that my peers make** so that we can share resources. 
+
+### **5.3 Functional Requirements**      
+Each subsection below corresponds to a CSC defined in the CSCI breakdown.       
+
+* **5.3.1 Graphical User Interface**:                                
+    * Description: The frontend shall provide the primary interface for users to interact with fika. It shall include pages for discovering cafes, viewing cafe details, and logging user experiences.         
+    * Requirements:     
+      * 5.3.1.1 The Discover Page subsystem shall display a searchable and filterable list of cafes.     
+      * 5.3.1.2 The Discover Page subsystem shall display cafes on a map using OpenStreetMaps.      
+      * 5.3.1.3 The Discover Page subsystem shall allow filtering cafes by criteria such as parking availability, seating capacity, wifi availability, and outlet availability.      
+      * 5.3.1.4 The Cafe Page subsystem shall display user-provided reviews for the selected cafe.          
+      * 5.3.1.5 The Cafe Page subsystem shall display metadata for each cafe, including address, hours, and amenities.       
+      * 5.3.1.6 The Cafe Page subsystem shall allow users to submit new reviews.         
+      * 5.3.1.7 The User Logging subsystem shall allow users to save cafes they have visited.          
+      * 5.3.1.8 The User Logging subsystem shall display a personalized list of cafes the user has saved.
+     
+* **5.3.2 Backend CSC — Database and API**:                                
+    * Description: The backend shall provide services for storing, retrieving, and managing data related to cafes, users, and reviews. It shall expose APIs to enable frontend communication.                  
+    * Requirements:      
+      * 5.3.2.1 The Database subsystem shall store cafe records with attributes including name, location, hours, and amenities.       
+      * 5.3.2.2 The Database subsystem shall store user reviews linked to specific cafes and users.      
+      * 5.3.2.3 The Database subsystem shall store user account information linked to Firebase authentication.     
+      * 5.3.2.4 The API subsystem shall provide endpoints for retrieving a list of cafes.    
+      * 5.3.2.5 The API subsystem shall provide endpoints for retrieving cafes filtered by user-specified criteria.     
+      * 5.3.2.6 The API subsystem shall provide endpoints for submitting new reviews.      
+      * 5.3.2.7 The API subsystem shall provide endpoints for retrieving user-saved cafes.     
+
+* **5.3.3 Authentication CSC**:                                
+    * Description: The authentication subsystem shall provide secure account management, enabling users to log in, log out, and manage their session.                          
+    * Requirements:        
+      * 5.3.3.1 The system shall allow users to create an account using Firebase authentication.
+      * 5.3.3.2 The system shall allow users to log in with an existing account.
+      * 5.3.3.3 The system shall allow users to log out of their account.
+      * 5.3.3.4 The system shall restrict access to logging and saving features to authenticated users.
+      * 5.3.3.5 The system shall ensure secure storage of authentication tokens.      
+
+* **5.3.4 Data Visualization CSC**:                                
+    * Description: The visualization subsystem shall provide users with aggregated insights and trends about cafes.                                
+    * Requirements:        
+      * 5.3.4.1 The system shall generate visualizations of popular cafes based on number of reviews.
+      * 5.3.4.2 The system shall generate visualizations of average cafe ratings.
+      * 5.3.4.3 The system shall generate visualizations of amenities availability trends (e.g., % of cafes with wifi).
+      * 5.3.4.4 The system shall display visualizations using Vega charts.      
+     
+* **5.3.5 Hosting & Infrastructure CSC**:                                
+    * Description: The hosting and infrastructure subsystem shall ensure fika is deployable, scalable, and available to users.                               
+    * Requirements:        
+      * 5.3.5.1 The system shall host the frontend using Vercel.      
+      * 5.3.5.2 The system shall host the backend and database using Supabase.       
+      * 5.3.5.3 The system shall automatically redeploy on updates using CI/CD pipelines.      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## **1.3 Preliminary Design Description**
 
