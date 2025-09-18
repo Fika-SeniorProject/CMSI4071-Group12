@@ -83,7 +83,7 @@ CSCI fika is composed of the following CSCs:
     * SupabaseDeploy module — Handles backend services.       
 
 
-### **5.3 Functional Requirements**      
+## **5.3 Functional Requirements**      
 Each subsection below corresponds to a CSC defined in the CSCI breakdown.       
 
 * **5.3.1 Graphical User Interface**:                                
