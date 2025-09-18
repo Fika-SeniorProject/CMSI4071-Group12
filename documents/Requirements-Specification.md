@@ -32,7 +32,7 @@ Secondary users include students and remote works.
 * User Profiles → each user has a profile with their saved coffee shops and reviews 
 * Firebase Authentication → supports Google sign-in and email/password sign in  
 
-**5.2 CSCI Components** 
+## **5.2 CSCI Components** 
 
 * **5.2.1 Frontend CSC**: The user-facing portion of fika, built with Next.js. It is responsible for rendering the interface where users can browse, filter, and review cafes.      
 
