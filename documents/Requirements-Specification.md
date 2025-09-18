@@ -144,7 +144,7 @@ The fika system shall provide a smooth and responsive experience for users. This
 
 * **5.4.2 Cafe Page Load Performance**:
   * Description: When users click on an individual cafe, the details page should load quickly to avoid frustration.     
-  * Requirements:       
+  * Requirements:
     *5.4.2.1 The system shall load a cafe’s information (reviews, details, and metadata) within 2 seconds under normal operating conditions.      
 
 * **5.4.3 Authentication Performance**:
