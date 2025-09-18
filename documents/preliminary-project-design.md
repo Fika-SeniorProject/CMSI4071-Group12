@@ -1,35 +1,36 @@
 # **Preliminary Project Design**
 
-CMSI 543: Agile Development and Project Management  
-19 February 2025
+CMSI 4071: Senior Project I 
+24 September 2025
 
-Collaborators: Raihana Zahra, Lauren Campbell, Giselle Eliasi, Brady Katler
+Collaborators: 
 
 ## **1.1 Project Overview** 
 
-**Project Name:** StudyStacks
+**Project Name:** Fika
 
 ### **Project Description** 
 
-StudyStacks is an iOS application that allows users to create, share, and study flashcards from the convenience of their mobile device. The app will provide an intuitive experience for building flashcard stacks, deliver study reminders based on spaced repetition algorithms, allow the user to discover stacks focused on favored topics, (potentially) share stacks with friends in the app, and encourage continuous learning through a badge and streak system. 
+Our proposed web application, fika, is a tool for discovering new coffee shops. Currently for many the process of trying new cafes involves prior research on criteria such as the difficulty of finding parking or seating, the quality of the drinks, or the availability of wifi and outlets. This information is scattered between various reviewing platforms, such as Tiktok and Google Reviews. Our project idea is to condense this information into one application specifically made for reviewing and discovering cafes. While there are a few similar applications such as beli or Yelp made for reviewing restaurants, none are dedicated to cafes and therefore they lack the specific details that are of interest to coffee shop goers. The most important features of fika are the logging feature for users to save and review cafes they have visited, the individual cafe page that displays the user provided information on the cafe, and the discover page where users can apply filters to discover cafes near them. The frontend of the web-app will be created using Next.js and the backend will include a database made using PostgreSQL. Additionally we will use the free Open Streets Maps API for geographical data on cafes and Vega charts to visualize trends in coffee shop data. For authentication we will use Firebase and for hosting we will use Vercel and Supabase. If time permits and the free tiers support our use cases we will look into incorporating APIs such as Google Places and Gemini.
 
 ### **Project Management Style**
 
-As a group, we felt that taking a **Scrum** approach to the development of StudyStacks would be the most beneficial due to the focus on shorter iteration cycles, easy adaptability to changing vision, and the continuous feedback with each other. While we’re taking a very collaborative approach, we did define the roles of product owner and scrum master on the team, designating them to Lauren and Brady respectively.
+As a group, we felt that taking a **Scrum** approach to the development of Fika would be the most beneficial due to the focus on shorter iteration cycles, easy adaptability to changing vision, and the continuous feedback with each other. While we’re taking a very collaborative approach, we did define the roles of product owner and scrum master on the team, designating them to Giselle and Ahtziri respectively.
 
 ### **Potential Users** 
 
-The primary users are learners or students of various academic levels and age ranges that want to seek an effective studying tool (predominantly high school and upwards).
+The primary users are people who are very passionate about trying new coffee spots.
 
-Secondary users include teachers, tutors, and parents who want to create and share study material to help others, and track learning progress. 
+Secondary users include students and remote works.
+
 
 ### **Key Features**
 
-* Flashcard Deck Creation → users can create and organize their own study stacks  
-* Flashcard Library → users can browse public decks by category or keyword  
-* User Profiles → each user has a profile with their saved flashcards and study stats  
+* Home Page → all general information and featured cafes
+* Explore Page → will display coffee shops and can by filter by certain features 
+* Individual Cafe Page → will display about informationm community ratings, popularity over time, general reviews
+* User Profiles → each user has a profile with their saved coffee shops and reviews 
 * Firebase Authentication → supports Google sign-in and email/password sign in  
-* Badge System → users are rewarded with displayable badges for completing goals
 
 ## **1.2 Preliminary Project Requirements**
 
@@ -71,7 +72,7 @@ Secondary users include teachers, tutors, and parents who want to create and sha
 
 ## **1.3 Preliminary Design Description**
 
-StudyStacks will be an application that primarily relies on the iPhone as the place of interaction for the user’s to initiate certain actions, such as view flashcards and study decks, and have more direct interactions with the system. 
+Fika will be an application that primarily relies on the iPhone as the place of interaction for the user’s to initiate certain actions, such as view flashcards and study decks, and have more direct interactions with the system. 
 
 ### **System Architecture Design**
 <img src="img/prelim_system_architecture.png" alt ="diagram of system architecture" height="250">
