@@ -1,9 +1,9 @@
 # **Preliminary Project Design**
 
-CMSI 4071: Senior Project I 
-24 September 2025
-
-Collaborators: 
+CMSI 4071: Senior Project I      
+24 September 2025      
+        
+Collaborators: Giselle Eliasi, Jillian Hunter, Kate Galvin, Ahtziri Gutierrez       
 
 ## **1.1 Project Overview** 
 
