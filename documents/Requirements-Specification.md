@@ -36,7 +36,6 @@ Secondary users include students and remote works.
 
 * **5.2.1 Frontend CSC**: The user-facing portion of fika, built with Next.js. It is responsible for rendering the interface where users can browse, filter, and review cafes.      
 
-
   * 5.2.1.1 Discover Page CSU — Provides the interface to search and filter cafes using location and user-specified criteria (parking, seating, wifi, etc.).      
     * DiscoverFilter module — Implements filter UI components (checkboxes, dropdowns).      
     * MapView module — Integrates OpenStreetMaps to visualize cafe locations.      
@@ -47,24 +46,40 @@ Secondary users include students and remote works.
    
   * 5.2.1.3 User Logging CSU — Allows users to log and save cafes they’ve visited.        
     * Favorites module — Manages user’s saved cafe list.        
-    * ReviewInput module — Provides UI for writing reviews.        
-    
+    * ReviewInput module — Provides UI for writing reviews.
+      
+   
+* **5.2.2 Backend CSC**: The application’s backend services, hosted on Supabase and PostgreSQL, responsible for business logic, data storage, and API endpoints.             
+
+  * 5.2.2.1 Database CSU — PostgreSQL database schema for storing cafes, reviews, and user data.          
+    * CafeTable module — Stores cafe details.
+    * ReviewTable module — Stores user reviews and ratings.           
+    * UserTable module — Stores authentication-linked user data.            
+   
+  * 5.2.2.2 API CSU — Provides REST/GraphQL endpoints for frontend communication.                  
+    * CafeAPI module — Handles queries and filters for cafes.         
+    * ReviewAPI module — Handles creation and retrieval of reviews.
+                
+          
+* **5.2.3 Authentication CSC**: Authentication CSC — Firebase-based system for user login, signup, and account management.                  
+
+  * 5.2.3.1 Auth CSU — Manages login, logout, and account sessions.               
+    * AuthUI module — Provides login/register screens.     
+    * AuthLogic module — Handles token management and secure sessions.
+
+      
+* **5.2.4 Data Visualization CSC**: Handles analytics and insights about cafes using Vega charts.                         
+
+  * 5.2.4.1 Trend Visualization CSU — Displays aggregated statistics (popular cafes, average ratings, etc.).                     
+    * Charts module — Generates Vega-based charts.
    
 
-* User Sign In/Sign Up   
-  * The user sign up will allow the user to create a new account to which all their data will be saved  
-  * The user sign in will allow the user to access their saved data across devices  
-* Dashboard   
-  * The dashboard will allow the user to see a general overview of major features across the app in one place  
-* Flashcard Library   
-  * The flashcard library will allow the user to see flashcards from different decks, categories, and users in one place  
-* User Profile   
-  * The user profile will allow the user to access personal data about their study habits, flashcards, and other relevant information in one place  
-  * The user profile will allow the user to manage their account information, including the ability to sign in, sign out, and delete their data  
-* Social Page  
-  * The social page will allow the user to connect with their peers and manage their in-app friends  
-  * The social page will allow the user to see recent decks created by their in-app friends.
+* **5.2.5 Hosting & Infrastructure CSC**: Deployment and hosting configuration using Vercel (frontend) and Supabase (backend).                             
 
+  * 5.2.5.1 Hosting CSU — Manages CI/CD pipelines and deployment.                          
+    * VercelDeploy module — Handles frontend deployment.
+    * SupabaseDeploy module — Handles backend services.       
+   
 ### **User Stories**
 
 * User \+ Profile  
