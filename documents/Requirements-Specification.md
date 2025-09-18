@@ -1,11 +1,11 @@
-# **Preliminary Project Design**
+# **Requirements Specification**
 
 CMSI 4071: Senior Project I      
 24 September 2025      
         
 Collaborators: Giselle Eliasi, Jillian Hunter, Kate Galvin, Ahtziri Gutierrez       
 
-## **1.1 Introduction** 
+## **5.1 Introduction** 
 
 **Project Name:** Fika
 
@@ -32,9 +32,24 @@ Secondary users include students and remote works.
 * User Profiles → each user has a profile with their saved coffee shops and reviews 
 * Firebase Authentication → supports Google sign-in and email/password sign in  
 
-## **1.2 Preliminary Project Requirements**
+**5.2 CSCI Components** 
 
-**1.2 CSCI Components** 
+* **5.2.1 Frontend CSC**: The user-facing portion of fika, built with Next.js. It is responsible for rendering the interface where users can browse, filter, and review cafes.      
+
+
+  * 5.2.1.1 Discover Page CSU — Provides the interface to search and filter cafes using location and user-specified criteria (parking, seating, wifi, etc.).      
+    * DiscoverFilter module — Implements filter UI components (checkboxes, dropdowns).      
+    * MapView module — Integrates OpenStreetMaps to visualize cafe locations.      
+   
+  * 5.2.1.2 Cafe Page CSU — Displays individual cafe details, reviews, and ratings.          
+    * ReviewDisplay module — Shows user reviews and aggregated ratings.        
+    * CafeInfo module — Displays cafe metadata such as parking, outlets, wifi availability.       
+   
+  * 5.2.1.3 User Logging CSU — Allows users to log and save cafes they’ve visited.        
+    * Favorites module — Manages user’s saved cafe list.        
+    * ReviewInput module — Provides UI for writing reviews.        
+    
+   
 
 * User Sign In/Sign Up   
   * The user sign up will allow the user to create a new account to which all their data will be saved  
