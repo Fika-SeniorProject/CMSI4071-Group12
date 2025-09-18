@@ -98,7 +98,7 @@ Each subsection below corresponds to a CSC defined in the CSCI breakdown.
       * 5.3.1.7 The User Logging subsystem shall allow users to save cafes they have visited.          
       * 5.3.1.8 The User Logging subsystem shall display a personalized list of cafes the user has saved.
      
-* **5.3.2 Backend CSC — Database and API**:                                
+* **5.3.2 Database and API**:                                
     * Description: The backend shall provide services for storing, retrieving, and managing data related to cafes, users, and reviews. It shall expose APIs to enable frontend communication.                  
     * Requirements:      
       * 5.3.2.1 The Database subsystem shall store cafe records with attributes including name, location, hours, and amenities.       
