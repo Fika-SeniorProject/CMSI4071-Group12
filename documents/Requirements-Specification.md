@@ -169,7 +169,7 @@ The fika system shall provide a smooth and responsive experience for users. This
  
 * **5.4.7 Storage Requirement**:
   * Description: The system must efficiently handle storage for cafes, reviews, and user data.                       
-  * Requirements:        
+  * Requirements:
     *5.4.7.1 The system shall store up to 1 million cafe entries and 10 million user reviews without requiring major database restructuring.      
 
 
