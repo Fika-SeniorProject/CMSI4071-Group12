@@ -75,11 +75,11 @@ Each subsection below corresponds to a CSC defined in the CSCI breakdown.
       * 5.1.1.2 The Discover Page subsystem shall allow for filtering of cafes.
       * 5.1.1.3 The Discover Page subsystem shall allow users to search for cafes.     
       * 5.3.1.4 The Discover Page subsystem shall display cafes on a map using OpenStreetMaps.      
-      * 5.3.1.5 The Discover Page subsystem shall allow filtering cafes by pertinent criteria.
-        This criteria will include parking availability, seating capacity, wifi availability, and outlet availability.  
+      * 5.3.1.5 The Discover Page subsystem shall allow filtering cafes by pertinent criteria.  
+          - This criteria will include parking availability, seating capacity, wifi availability, and outlet availability.  
       * 5.3.1.6 The Cafe Page subsystem shall display user-provided reviews for the selected cafe.          
       * 5.3.1.7 The Cafe Page subsystem shall display metadata for each cafe.
-        The metadata will include address, hours, and amenities.       
+          - The metadata will include address, hours, and amenities.       
       * 5.3.1.8 The Cafe Page subsystem shall allow users to submit new reviews.
       * 5.3.1.9 The Cafe Page subsystem shall display charts visualizing trends in cafe data.         
       * 5.3.1.10 The User Logging subsystem shall allow users to save cafes they have visited.          
@@ -88,8 +88,8 @@ Each subsection below corresponds to a CSC defined in the CSCI breakdown.
 * **5.3.2 Backend CSC**:                                
     * Description: The backend shall provide services for storing, retrieving, and managing data related to cafes, users, and reviews. It shall expose APIs to enable frontend communication.                  
     * Requirements:      
-      * 5.3.2.1 The Database subsystem shall store cafe records with relevant attributes.
-        These attributes will include name, location, hours, and amenities.       
+      * 5.3.2.1 The Database subsystem shall store cafe records with relevant attributes.  
+          - These attributes will include name, location, hours, and amenities.       
       * 5.3.2.2 The Database subsystem shall store user reviews linked to specific cafes.
       * 5.3.2.3 The Database subsystem shall save what user submitted a review.     
       * 5.3.2.4 The Database subsystem shall store user account information linked to Firebase authentication.     
