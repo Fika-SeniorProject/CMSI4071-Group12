@@ -26,16 +26,16 @@ This table details the relationship between each task and the resources required
 
 | Task | Estimated Duration | Assigned To | Resources (Hardware/Software) |
 |---|---|---|---|
-| **Setting up dev enviorment** | 2 days | < All Members> | <VSCode, Supabase, Verce, GitHub, Node.js, npm> |
-| **Create UX Designs** | <2 weeks> | < Jillian> | <Figma, Gemini mocks, Photoshop> |
-| **Create Home Page** | <1 week> | < Kate > | <React, VSCode, Gemini mocks, Figma, CSS help tools> |
-| **Create Cafe Page** | <1 week> | < Jillian > | <React,VSCode, Gemini mocks, Figma, UI kits> |
-| **Create Basic Discover Page** | 1 week> | < Ahtziri > | <VSCode, Gemini mocks, Figma> |
-| **Add Filtering Functionality** | <2-3 days> | < Giselle > | <e.g., Test Server, Collaboration Tool> |
-| **Set up Hosting** | <~1-2 week> | < Kate > | <e.g., Test Server, Collaboration Tool> |
-| **Create Logging Functionality** | <2 weeks> | < Giselle > | <e.g., IDE, Database, Laptop> |
-| **Write Unit Tests** | <1 week > | < Ahtziri > | <e.g., Photoshop, Cloud Storage> |
-| **Manually Input Cafes** | <3-4 weeks> | < All members > | <VSCode, Google maps, Yelp, Google> |
-| **Experiment with APIs** | <3 weeks> | < All members > | <e.g., Test Server, Collaboration Tool> |
-| **Add Map Functionality** | <4 days> | < Jillian > | <Google maps> |
-| **Add Data Visualizations** | <2 weeks> | < Giselle > | <e.g., Test Server, Collaboration Tool> |
+| **Setting up dev enviorment** | 2 days | All Members | VSCode, Supabase, Verce, GitHub, Node.js, npm |
+| **Create UX Designs** | 2 weeks | All Members | Figma, Gemini mocks, Photoshop |
+| **Create Home Page** | 1 week | Kate | Next.js, VSCode, Gemini mocks, Figma, CSS help tools> |
+| **Create Cafe Page** | 1 week | Jillian | Next.js, VSCode, Gemini mocks, Figma, UI kits |
+| **Create Basic Discover Page** | 1 week | Ahtziri | VSCode, Gemini mocks, Figma |
+| **Add Filtering Functionality** | 2-3 days | Giselle | VSCode, Supabase |
+| **Set up Hosting** | 2-3 days | Kate | Vercel, Supabase, VSCode |
+| **Create Logging Functionality** | 2 weeks | Giselle | Supabase, VSCode |
+| **Write Unit Tests** | 5 weeks | All members | VSCode |
+| **Manually Input Cafes** | 3-4 weeks | All members | VSCode, Google maps, Yelp, Google |
+| **Experiment with APIs** | 3 weeks | All members | OpenStreetsMap, GooglePlaces, Yelp Fusion |
+| **Add Map Functionality** | 1 week | Jillian | OpenStreetsMap API |
+| **Add Data Visualizations** | 2 weeks | Kate | Vega, VSCode |
