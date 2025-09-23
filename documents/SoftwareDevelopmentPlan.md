@@ -35,7 +35,7 @@ This table details the relationship between each task and the resources required
 | **Manually Testing** | 2 weeks | All members | VSCode |
 | **Add Filtering Functionality** | 2-3 days | Giselle | VSCode, Supabase |
 | **Add Map Functionality** | 1 week | Jillian | OpenStreetsMap API |
+| **Add Data Visualizations** | 2 weeks | Kate | Vega, VSCode |
 | **Create Logging Functionality** | 1 week | Giselle | Supabase, VSCode |
 | **Manually Input Cafes** | 5 weeks | All members | VSCode, Google maps, Yelp, Google |
 | **Experiment with APIs** | 3 weeks | All members | OpenStreetsMap, GooglePlaces, Yelp Fusion |
-| **Add Data Visualizations** | 2 weeks | Kate | Vega, VSCode |
