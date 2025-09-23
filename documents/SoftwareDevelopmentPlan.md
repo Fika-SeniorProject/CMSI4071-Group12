@@ -26,15 +26,16 @@ This table details the relationship between each task and the resources required
 
 | Task | Estimated Duration | Assigned To | Resources (Hardware/Software) |
 |---|---|---|---|
-| **Create UX Designs** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Create Home Page** | <e.g., 2 weeks> | <Team Member Name> | <e.g., IDE, Database, Laptop> |
-| **Create Cafe Page** | <e.g., 3 days> | <Team Member Name> | <e.g., Photoshop, Cloud Storage> |
-| **Create Basic Discover Page** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Add Filtering Functionality** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Set up Hosting** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Create Logging Functionality** | <e.g., 2 weeks> | <Team Member Name> | <e.g., IDE, Database, Laptop> |
-| **Write Unit Tests** | <e.g., 3 days> | <Team Member Name> | <e.g., Photoshop, Cloud Storage> |
-| **Manually Input Cafes** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Experiment with APIs** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Add Map Functionality** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
-| **Add Data Visualizations** | <e.g., 1 week> | <Team Member Name> | <e.g., Test Server, Collaboration Tool> |
+| **Setting up dev enviorment** | 2 days | < All Members> | <VSCode, Supabase, Verce, GitHub, Node.js, npm> |
+| **Create UX Designs** | <2 weeks> | < Jillian> | <Figma, Gemini mocks, Photoshop> |
+| **Create Home Page** | <1 week> | <Kate> | <React, VSCode, Gemini mocks, Figma, CSS help tools> |
+| **Create Cafe Page** | <1 week> | <Jillian> | <React,VSCode, Gemini mocks, Figma, UI kits> |
+| **Create Basic Discover Page** | 1 week> | <Ahtziri> | <VSCode, Gemini mocks, Figma> |
+| **Add Filtering Functionality** | <2-3 days> | <Giselle> | <e.g., Test Server, Collaboration Tool> |
+| **Set up Hosting** | <~1-2 week> | <Kate> | <e.g., Test Server, Collaboration Tool> |
+| **Create Logging Functionality** | <2 weeks> | <Giselle> | <e.g., IDE, Database, Laptop> |
+| **Write Unit Tests** | <1 week > | <Ahtziri> | <e.g., Photoshop, Cloud Storage> |
+| **Manually Input Cafes** | <3-4 weeks> | <All members> | <VSCode, Google maps, Yelp, Google> |
+| **Experiment with APIs** | <3 weeks> | <All members> | <e.g., Test Server, Collaboration Tool> |
+| **Add Map Functionality** | <4 days> | <Jillian> | <Google maps> |
+| **Add Data Visualizations** | <2 weeks> | <Giselle> | <e.g., Test Server, Collaboration Tool> |
