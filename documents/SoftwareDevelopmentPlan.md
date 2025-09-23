@@ -5,17 +5,9 @@ This section provides schedule information for the **fika** project.
 ---
 
 ### 4.4.1 PERT Chart or GANTT Chart
+**GANTT Chart**
 
-**[Option 1: PERT Chart]**
-
-This PERT chart visually represents the project's tasks, their dependencies, and estimated durations. It helps identify the **critical path**, which is the sequence of tasks that determines the overall project completion time. The nodes represent events or milestones, while the arrows represent the tasks required to get from one milestone to the next.
-
-****
-
-**[Option 2: GANTT Chart]**
-
-This GANTT chart provides a timeline-based view of the project schedule. The tasks are listed on the vertical axis, and the horizontal bars show the duration of each task over time. This chart makes it easy to visualize task overlap, milestones, and the overall flow of the project.
-
+![GANNT Chart](../documents/gannt.png)
 ****
 
 ---
