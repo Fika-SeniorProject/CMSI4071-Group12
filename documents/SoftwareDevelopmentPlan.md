@@ -26,7 +26,7 @@ This table details the relationship between each task and the resources required
 
 | Task | Estimated Duration | Assigned To | Resources (Hardware/Software) |
 |---|---|---|---|
-| **Setting up dev enviorment** | 2 days | All Members | VSCode, Supabase, Verce, GitHub, Node.js, npm |
+| **Setting up dev enviorment** | 2 days | All Members | VSCode, Supabase, Vercel, GitHub, Node.js, npm |
 | **Create UX Designs** | 2 weeks | All Members | Figma, Gemini mocks, Photoshop |
 | **Create Home Page** | 1 week | Kate | Next.js, VSCode, Gemini mocks, Figma, CSS help tools> |
 | **Create Cafe Page** | 1 week | Jillian | Next.js, VSCode, Gemini mocks, Figma, UI kits |
