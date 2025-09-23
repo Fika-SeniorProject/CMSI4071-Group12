@@ -38,4 +38,4 @@ This table details the relationship between each task and the resources required
 | **Manually Input Cafes** | <3-4 weeks> | <All members> | <VSCode, Google maps, Yelp, Google> |
 | **Experiment with APIs** | <3 weeks> | <All members> | <e.g., Test Server, Collaboration Tool> |
 | **Add Map Functionality** | <4 days> | <Jillian> | <Google maps> |
-| **Add Data Visualizations** | <2 weeks> | <Giselle> | <e.g., Test Server, Collaboration Tool> |
+| **Add Data Visualizations** | <2 weeks> | < giselle > | <e.g., Test Server, Collaboration Tool> |
