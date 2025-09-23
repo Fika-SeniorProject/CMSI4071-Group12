@@ -28,7 +28,7 @@ This table details the relationship between each task and the resources required
 |---|---|---|---|
 | **Setting up dev enviorment** | 2 days | All Members | VSCode, Supabase, Vercel, GitHub, Node.js, npm |
 | **Create UX Designs** | 2 weeks | All Members | Figma, Gemini mocks, Photoshop |
-| **Create Home Page** | 2 weeks | Kate | Next.js, VSCode, Gemini mocks, Figma, CSS help tools> |
+| **Create Home Page** | 2 weeks | Kate | Next.js, VSCode, Gemini mocks, Figma, CSS help tools |
 | **Create Cafe Page** | 2 weeks | Jillian | Next.js, VSCode, Gemini mocks, Figma, UI kits |
 | **Create Basic Discover Page** | 2 week | Ahtziri | VSCode, Gemini mocks, Figma |
 | **Write Unit and Intergration Tests** | 6 weeks | All members | VSCode |
