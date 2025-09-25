@@ -1,8 +1,13 @@
 import { createClient } from "../utils/supabase/client";
 
+interface CoffeeShop {
+  id: number | string;
+  name: string;
+}
+
 export default async function Home() {
   const supabase = createClient();
-  let coffee_shops: any[] | null = null;
+  let coffee_shops: CoffeeShop[] | null = null;
   let error: string | null = null;
 
   try {
@@ -13,8 +18,10 @@ export default async function Home() {
       throw supabaseError;
     }
     coffee_shops = data;
-  } catch (e: any) {
-    error = e.message;
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      error = e.message;
+    }
     console.error(e);
   }
 
