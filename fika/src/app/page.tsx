@@ -1,5 +1,7 @@
 import { createClient } from "../utils/supabase/client";
 
+export const dynamic = 'force-dynamic';
+
 interface CoffeeShop {
   id: number | string;
   name: string;
