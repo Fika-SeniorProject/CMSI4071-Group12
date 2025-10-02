@@ -3,7 +3,11 @@ import { NavBar } from "@/components/nav-bar";
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 
-export default async function CafeDetailsPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: { id: string };
+};
+
+export default async function CafeDetailsPage({ params }: Props) {
   const supabase = await createClient();
 
   const { data: shop } = await supabase
