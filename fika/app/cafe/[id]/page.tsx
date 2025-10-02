@@ -4,16 +4,17 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function CafeDetailsPage({ params }: Props) {
+  const resolvedParams = await params;
   const supabase = await createClient();
 
   const { data: shop } = await supabase
     .from("coffee_shops")
     .select("*, shop_photos(photo_url)")
-    .eq("id", params.id)
+    .eq("id", resolvedParams.id)
     .single();
 
   if (!shop) {
