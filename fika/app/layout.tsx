@@ -1,7 +1,8 @@
 import { AuthButton } from "@/components/auth-button";
 import { NavBar } from "@/components/nav-bar";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Karla } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
@@ -15,10 +16,15 @@ export const metadata: Metadata = {
   description: "A coffee shop rating app.",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
+const karla = Karla({
   subsets: ["latin"],
+  variable: "--font-karla",
+});
+
+const kate = localFont({
+  src: "./fonts/kate.ttf",
+  variable: "--font-kate",
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -28,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${karla.className} ${kate.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

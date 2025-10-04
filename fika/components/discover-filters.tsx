@@ -33,16 +33,8 @@ export function DiscoverFilters({ cities, parkings, seatings, vibes }: { cities:
       <FilterDropdown title="Parking" options={parkings} filterKey="parking" />
       <FilterDropdown title="Seating" options={seatings} filterKey="seating" />
       <FilterDropdown title="Vibe" options={vibes} filterKey="vibe" />
-      <div className="flex gap-2 items-center">
-        <span>Wifi:</span>
-        <Button variant={hasWifi === "true" ? "secondary" : "outline"} onClick={() => handleBooleanFilterChange("has_wifi", true)}>Yes</Button>
-        <Button variant={hasWifi === "false" ? "secondary" : "outline"} onClick={() => handleBooleanFilterChange("has_wifi", false)}>No</Button>
-      </div>
-      <div className="flex gap-2 items-center">
-        <span>Outlets:</span>
-        <Button variant={hasOutlets === "true" ? "secondary" : "outline"} onClick={() => handleBooleanFilterChange("has_outlets", true)}>Yes</Button>
-        <Button variant={hasOutlets === "false" ? "secondary" : "outline"} onClick={() => handleBooleanFilterChange("has_outlets", false)}>No</Button>
-      </div>
+      <FilterDropdown title="Wifi" options={["Yes", "No"]} filterKey="has_wifi" />
+      <FilterDropdown title="Outlets" options={["Yes", "No"]} filterKey="has_outlets" />
       <Button variant="ghost" onClick={clearFilters}>Clear Filters</Button>
     </div>
   );

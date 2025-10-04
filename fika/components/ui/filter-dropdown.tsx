@@ -26,7 +26,7 @@ export function FilterDropdown({ title, options, filterKey }: { title: string, o
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{title}</Button>
+        <Button variant="outline" className="uppercase">{title}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={selectedValue} onValueChange={handleFilterChange}>

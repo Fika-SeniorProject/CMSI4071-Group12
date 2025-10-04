@@ -7,7 +7,7 @@ export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
   return (
     <Card className="w-full flex flex-col">
       <CardHeader>
-        <CardTitle>{shop.name}</CardTitle>
+        <CardTitle className="font-kate">{shop.name}</CardTitle>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col justify-between gap-4">
         {shop.shop_photos && shop.shop_photos.length > 0 ? (
@@ -19,7 +19,7 @@ export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
         ) : (
           <div className="w-full aspect-square bg-gray-200 rounded-md"></div>
         )}
-        <Button asChild className="w-full">
+        <Button asChild className="w-full uppercase">
           <Link href={`/cafe/${shop.id}`}>View Details</Link>
         </Button>
       </CardContent>

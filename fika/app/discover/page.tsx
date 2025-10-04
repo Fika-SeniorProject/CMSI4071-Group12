@@ -39,10 +39,10 @@ export default function DiscoverPage() {
         query = query.eq("vibe", searchParams.get("vibe") as string);
       }
       if (searchParams.get("has_wifi")) {
-        query = query.eq("has_wifi", searchParams.get("has_wifi") === "true");
+        query = query.eq("has_wifi", searchParams.get("has_wifi") === "Yes");
       }
       if (searchParams.get("has_outlets")) {
-        query = query.eq("has_outlets", searchParams.get("has_outlets") === "true");
+        query = query.eq("has_outlets", searchParams.get("has_outlets") === "Yes");
       }
 
       const { data: shops } = await query;
@@ -57,10 +57,10 @@ export default function DiscoverPage() {
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         
         <div className="text-center px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl font-kate">
             Discover Cafes
           </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-6 text-lg leading-8 text-gray-600 font-kate">
             Browse our collection of coffee shops.
           </p>
         </div>
