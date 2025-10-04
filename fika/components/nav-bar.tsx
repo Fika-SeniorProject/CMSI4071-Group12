@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { AuthButton } from "./auth-button";
 
-export function NavBar() {
+export function NavBar({ authButton }: { authButton: React.ReactNode }) {
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
       <div className="w-full max-w-7xl flex justify-between items-center p-3 px-5 text-lg">
-        <div className="flex gap-5 items-center font-semibold">
+        <div className="font-semibold">
           <Link href={"/"}>fika</Link>
         </div>
-        <AuthButton />
+        <div className="flex gap-5 items-center font-semibold">
+          <Link href={"/discover"}>discover</Link>
+          {authButton}
+        </div>
       </div>
     </nav>
   );

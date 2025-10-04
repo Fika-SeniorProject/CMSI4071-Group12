@@ -1,6 +1,6 @@
 import { CafeQuickView } from "@/components/cafe-quick-view";
 import { Footer } from "@/components/footer";
-import { NavBar } from "@/components/nav-bar";
+
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
@@ -19,9 +19,9 @@ export default async function Home() {
     .eq("is_featured", true);
 
   return (
-    <main className="min-h-screen flex flex-col items-center">
+    <main className="min-h-screen flex flex-col items-center pt-12">
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
-        <NavBar />
+        
         <div className="text-center px-4">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             <span className="font-light">Welcome to</span>{" "}

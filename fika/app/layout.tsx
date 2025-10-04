@@ -1,3 +1,5 @@
+import { AuthButton } from "@/components/auth-button";
+import { NavBar } from "@/components/nav-bar";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
@@ -33,6 +35,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NavBar authButton={<AuthButton />} />
           {children}
         </ThemeProvider>
       </body>
