@@ -12,8 +12,11 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Fika",
+  title: "fika",
   description: "A coffee shop rating app.",
+  icons: {
+    icon: "/cardamomBun.png",
+  },
 };
 
 const karla = Karla({
