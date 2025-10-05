@@ -1,7 +1,7 @@
 "use client";
 
 import { FilterDropdown } from "@/components/ui/filter-dropdown";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 export function DiscoverFilters({
