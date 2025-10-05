@@ -26,14 +26,14 @@ export default async function Home() {
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-10 left-10 z-[-1]"
+        className="absolute top-8 left-12 z-[-1]"
       />
       <Image
         src="/hotMatchaLatte.png"
         alt="decoration"
-        width={96}
-        height={96}
-        className="absolute top-1/3 left-5 z-[-1]"
+        width={120}
+        height={120}
+        className="absolute top-1/3 left-8 z-[-1]"
       />
       <Image
         src="/swanLatte.png"
@@ -47,7 +47,21 @@ export default async function Home() {
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-2/3 right-5 z-[-1]"
+        className="absolute bottom-20 right-5 z-[-1]"
+      />
+      <Image
+        src="/icedLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute bottom-60 left-20 z-[-1]"
+      />
+      <Image
+        src="/hotLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute top-1/2 right-14 z-[-1]"
       />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <div className="text-center px-4">

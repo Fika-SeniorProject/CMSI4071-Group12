@@ -35,6 +35,27 @@ export default function DiscoverPage() {
         height={96}
         className="absolute top-2/3 right-5 z-[-1]"
       />
+      <Image
+        src="/hotLatte.png"
+        alt="decoration"
+        width={95}
+        height={95}
+        className="absolute bottom-16 left-16 z-[-1]"
+      />
+      <Image
+        src="/creamTopLatte.png"
+        alt="decoration"
+        width={95}
+        height={95}
+        className="absolute top-1/4 right-12 z-[-1]"
+      />
+      <Image
+        src="/icedLatte.png"
+        alt="decoration"
+        width={95}
+        height={95}
+        className="absolute top-1/2 left-10 z-[-1]"
+      />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <Suspense fallback={<div>Loading discover content...</div>}>
           <DiscoverContent />
