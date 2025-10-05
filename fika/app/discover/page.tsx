@@ -2,12 +2,39 @@
 
 import { Suspense } from "react";
 import { DiscoverContent } from "@/components/discover-content";
+import Image from "next/image";
 
 export default function DiscoverPage() {
-
-
   return (
-    <main className="min-h-screen flex flex-col items-center pt-12">
+    <main className="min-h-screen flex flex-col items-center pt-12 relative">
+      <Image
+        src="/cardamomBun.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute top-10 left-10 z-[-1]"
+      />
+      <Image
+        src="/swanLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute top-1/3 left-5 z-[-1]"
+      />
+      <Image
+        src="/icedMatchaLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute top-20 right-10 z-[-1]"
+      />
+      <Image
+        src="/hotMatchaLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="absolute top-2/3 right-5 z-[-1]"
+      />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <Suspense fallback={<div>Loading discover content...</div>}>
           <DiscoverContent />
