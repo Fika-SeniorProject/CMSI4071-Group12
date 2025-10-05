@@ -9,19 +9,7 @@ export function DiscoverFilters({ cities, parkings, seatings, vibes }: { cities:
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const hasWifi = searchParams.get("has_wifi");
-  const hasOutlets = searchParams.get("has_outlets");
 
-  const handleBooleanFilterChange = (filterKey: string, value: boolean) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-    if (current.get(filterKey) === value.toString()) {
-      current.delete(filterKey);
-    } else {
-      current.set(filterKey, value.toString());
-    }
-    const query = current.toString();
-    router.push(`${pathname}?${query}`);
-  };
 
   const clearFilters = () => {
     router.push(pathname);
