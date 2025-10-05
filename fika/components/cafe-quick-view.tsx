@@ -2,6 +2,7 @@ import { CoffeeShop } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
   return (
@@ -11,9 +12,11 @@ export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
       </CardHeader>
       <CardContent className="flex-grow flex flex-col justify-between gap-4">
         {shop.shop_photos && shop.shop_photos.length > 0 ? (
-          <img
+          <Image
             src={shop.shop_photos[0].photo_url}
-            alt={shop.name}
+            alt={shop.name || "No name found"}
+            width={500}
+            height={500}
             className="w-full aspect-square object-cover rounded-md"
           />
         ) : (
