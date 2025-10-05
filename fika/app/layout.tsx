@@ -22,7 +22,18 @@ const karla = Karla({
 });
 
 const kate = localFont({
-  src: "./fonts/kate.ttf",
+  src: [
+    {
+      path: "./fonts/Kate-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Kate-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-kate",
   display: "swap",
 });

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { CafeQuickView } from "@/components/cafe-quick-view";
 import { DiscoverFilters } from "@/components/discover-filters";
@@ -42,7 +42,10 @@ export default function DiscoverPage() {
         query = query.eq("has_wifi", searchParams.get("has_wifi") === "Yes");
       }
       if (searchParams.get("has_outlets")) {
-        query = query.eq("has_outlets", searchParams.get("has_outlets") === "Yes");
+        query = query.eq(
+          "has_outlets",
+          searchParams.get("has_outlets") === "Yes"
+        );
       }
 
       const { data: shops } = await query;
@@ -55,9 +58,8 @@ export default function DiscoverPage() {
   return (
     <main className="min-h-screen flex flex-col items-center pt-12">
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
-        
         <div className="text-center px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl font-kate">
+          <h1 className="text-4xl tracking-tight text-gray-900 sm:text-6xl font-kate">
             Discover Cafes
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600 font-kate">

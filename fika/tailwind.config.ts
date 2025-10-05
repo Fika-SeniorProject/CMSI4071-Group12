@@ -59,6 +59,7 @@ export default {
       },
       fontFamily: {
         kate: ["var(--font-kate)"],
+        karla: ["var(--font-karla)"],
       },
     },
   },
