@@ -21,7 +21,15 @@ export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
             className="w-full aspect-square object-cover rounded-md"
           />
         ) : (
-          <div className="w-full aspect-square bg-gray-200 rounded-md"></div>
+          <div className="flex justify-center items-center w-full h-full">
+            <Image
+              src="/hotLatte.png"
+              alt="Hot Latte"
+              width={200}
+              height={200}
+              className="rounded-md object-cover"
+            />
+          </div>
         )}
         <Button asChild className="w-full uppercase">
           <Link href={`/cafe/${shop.id}`}>View Details</Link>

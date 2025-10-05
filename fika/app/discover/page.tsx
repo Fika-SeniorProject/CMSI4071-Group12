@@ -36,13 +36,6 @@ export default function DiscoverPage() {
         className="absolute top-2/3 right-5 z-[-1]"
       />
       <Image
-        src="/hotLatte.png"
-        alt="decoration"
-        width={95}
-        height={95}
-        className="absolute bottom-16 left-16 z-[-1]"
-      />
-      <Image
         src="/creamTopLatte.png"
         alt="decoration"
         width={95}

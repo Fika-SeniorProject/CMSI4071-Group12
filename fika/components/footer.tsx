@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="w-full flex items-start justify-center border-t mx-auto text-center text-xs gap-8">
+    <footer className="w-full flex items-start justify-center border-t mx-auto text-center text-xs gap-8 pb-4">
       <div className="flex flex-col items-center gap-4">
         <Image
           src="/tablescape.png"
