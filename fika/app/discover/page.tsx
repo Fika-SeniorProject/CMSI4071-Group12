@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { Constants } from "@/lib/supabase/database.types";
 import { createClient } from "@/lib/supabase/client";
 import { CoffeeShop } from "@/lib/types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function DiscoverPage() {
@@ -67,20 +67,22 @@ export default function DiscoverPage() {
           </p>
         </div>
         <div className="flex-1 flex flex-col gap-10 max-w-7xl p-5 w-full">
-          <DiscoverFilters
-            cities={Constants.public.Enums.Cities as unknown as string[]}
-            parkings={
-              Constants.public.Enums[
-                "Parking Difficulty"
-              ] as unknown as string[]
-            }
-            seatings={
-              Constants.public.Enums[
-                "Seating Availability"
-              ] as unknown as string[]
-            }
-            vibes={Constants.public.Enums.Vibe as unknown as string[]}
-          />
+          <Suspense fallback={<div>Loading filters...</div>}>
+            <DiscoverFilters
+              cities={Constants.public.Enums.Cities as unknown as string[]}
+              parkings={
+                Constants.public.Enums[
+                  "Parking Difficulty"
+                ] as unknown as string[]
+              }
+              seatings={
+                Constants.public.Enums[
+                  "Seating Availability"
+                ] as unknown as string[]
+              }
+              vibes={Constants.public.Enums.Vibe as unknown as string[]}
+            />
+          </Suspense>
           {shops.length > 0 ? (
             <section className="flex flex-col gap-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

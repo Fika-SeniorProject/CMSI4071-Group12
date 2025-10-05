@@ -17,6 +17,7 @@ export function CafeQuickView({ shop }: { shop: CoffeeShop }) {
             alt={shop.name || "No name found"}
             width={500}
             height={500}
+            priority
             className="w-full aspect-square object-cover rounded-md"
           />
         ) : (
