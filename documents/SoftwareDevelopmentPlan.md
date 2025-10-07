@@ -69,10 +69,10 @@ This section outlines the organizational structure of the Fika development team 
 
 | **Team Member** | **Assigned Tasks & Responsibilities** |
 |------------------|---------------------------------------|
-| Giselle | User Logging Subsystem, Discover Page Filtering Logic |
+| Giselle | Cafe Page UI/UX,Detailed Cafe Page |
 | Jillian | Cafe Page UI/UX, Map Functionality (OpenStreetMaps API) |
-| Kate | Home Page UI/UX, Data Visualization (Vega Charts) |
-| Ahtziri | Initial Discover Page UI/UX |
+| Kate | Home Page UI/UX, Data Visualization (Vega Charts), Discover Page Filtering Logic |
+| Ahtziri | Cafe Page UI/UX, User Logging Subsystem |
 | All Members | Initial Environment Setup, UX Design, Unit/Integration Testing, Manual Testing, Data Entry, API Research |
 
 
