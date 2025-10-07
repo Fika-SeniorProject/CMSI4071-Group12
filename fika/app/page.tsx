@@ -69,7 +69,7 @@ export default async function Home() {
             <span className="font-light">Welcome to</span>{" "}
             <span className="font-bold">fika</span>
           </h1>
-          <p className="mt-6 text-2xl leading-8 text-gray-600 font-kate">
+          <p className="mt-6 text-2xl leading-8 text-black font-kate">
             All the best coffee and work spots, all in one place.
           </p>
         </div>
