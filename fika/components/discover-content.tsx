@@ -58,10 +58,10 @@ export function DiscoverContent() {
   return (
     <>
       <div className="text-center px-4">
-        <h1 className="text-4xl tracking-tight text-gray-900 sm:text-6xl font-kate">
+        <h1 className="text-4xl tracking-tight text-black sm:text-6xl font-kate">
           Discover Cafes
         </h1>
-        <p className="mt-6 text-lg leading-8 text-gray-600 font-kate">
+        <p className="mt-6 text-lg leading-8 text-black font-kate">
           Browse our collection of coffee shops.
         </p>
       </div>
@@ -69,9 +69,7 @@ export function DiscoverContent() {
         <DiscoverFilters
           cities={Constants.public.Enums.Cities as unknown as string[]}
           parkings={
-            Constants.public.Enums[
-              "Parking Difficulty"
-            ] as unknown as string[]
+            Constants.public.Enums["Parking Difficulty"] as unknown as string[]
           }
           seatings={
             Constants.public.Enums[
