@@ -6,19 +6,19 @@ The Fika application addresses the current fragmentation of coffee shop informat
 ### 4.1.1 Project Deliverables      
 The following items will be delivered to the customer (instructor) during the course of the project:
 
-*Software Requirements Specification (SRS): [Delivery Date: 09/24/2025]    
+* Software Requirements Specification (SRS): [Delivery Date: 09/24/2025]    
     * This document provides a complete and detailed outline of the functional (5.3), performance (5.4), and environmental (5.5) requirements for the Fika application, serving as the foundational contract for development.      
 
-*Software Design Document (SDD): [Delivery Date: 09/24/2025]    
+* Software Design Document (SDD): [Delivery Date: 09/24/2025]    
     * Details the architectural design, including the CSCI component breakdown (Frontend, Backend, Auth), the PostgreSQL database schema, and interface specifications for the API and all third-party services (OpenStreetMaps, Firebase).     
 
-*Project Plan (SDP): [Delivery Date: 10/08/2025]       
+* Project Plan (SDP): [Delivery Date: 10/08/2025]       
     * Outlines the development approach, resource allocation (hardware, software, human), and the high-level task schedule for the project development lifecycle.       
 
-*Fika Minimum Viable Product (MVP): [Delivery Date: 11/05/2025]     
+* Fika Minimum Viable Product (MVP): [Delivery Date: 11/05/2025]     
     * A functional, publicly hosted version of the application using Vercel and Supabase. This version includes the core user flow: user Authentication (5.3.3), display of the Home Page and a basic Discover Page list (5.3.1.1), and a fundamental Cafe Page displaying static metadata.     
 
-*Fika Final Web Application: [Delivery Date: 12/10/2025]     
+* Fika Final Web Application: [Delivery Date: 12/10/2025]     
     * The complete, production-ready web application meeting all functional requirements. This includes advanced features such as:     
         * Full filtering and search capability on the Discover Page (5.3.1.5).     
         * OpenStreetMaps integration for geographical display (5.3.1.4).    
