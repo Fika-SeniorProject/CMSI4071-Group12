@@ -15,8 +15,11 @@ The following items will be delivered to the customer (instructor) during the co
 * Software Development Plan (SDP): [Delivery Date: 10/08/2025]       
     * Outlines the development approach, resource allocation (hardware, software, human), and the high-level task schedule for the project development lifecycle.       
 
-* Fika Minimum Viable Product (MVP): [Delivery Date: 11/05/2025]     
-    * A functional, publicly hosted version of the application using Vercel and Supabase. This version includes the core user flow: user Authentication (5.3.3), display of the Home Page and a basic Discover Page list (5.3.1.1), and a fundamental Cafe Page displaying static metadata.     
+* Software Design Description Document (Architecture Section): [Delivery Date: 11/05/2025]     
+    * Presents the overall architecture of the software system as well as the details of the application's design.
+ 
+* Software Design Description Document (Detailed Section): [Delivery Date: 11/19/2025]     
+    * This is the finalized, complete SDD, which expands upon the architectural design by providing the detailed design of all components and subsystems. It includes implementation specifics, data structures, and detailed interfaces, representing the Description phase of design where concepts are ready for implementation in code.     
 
 * Fika Final Web Application: [Delivery Date: 12/10/2025]     
     * The complete, production-ready web application meeting all functional requirements. This includes advanced features such as:     
