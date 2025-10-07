@@ -1,3 +1,12 @@
+## 4.1 Plan Introduction      
+### 4.1.1 Project Deliverables      
+
+## 4.2 Project Resources      
+### 4.2.1 Hardware Resources      
+### 4.2.2 Software Resources     
+
+## 4.3 Project Organization             
+
 ## 4.4 Schedule
 
 This section provides schedule information for the **fika** project.
@@ -30,4 +39,4 @@ This table details the relationship between each task and the resources required
 | **Add Data Visualizations** | 2 weeks | Kate | Vega, VSCode |
 | **Create Logging Functionality** | 1 week | Giselle | Supabase, VSCode |
 | **Manually Input Cafes** | 5 weeks | All members | VSCode, Google maps, Yelp, Google |
-| **Experiment with APIs** | 3 weeks | All members | OpenStreetsMap, GooglePlaces, Yelp Fusion |
+| **Experiment with APIs** | 3 weeks | All members | OpenStreetsMap, GooglePlaces, Yelp Fusion |     
