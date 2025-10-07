@@ -12,7 +12,7 @@ The following items will be delivered to the customer (instructor) during the co
 * Software Design Document (SDD): [Delivery Date: 09/24/2025]    
     * Details the architectural design, including the CSCI component breakdown (Frontend, Backend, Auth), the PostgreSQL database schema, and interface specifications for the API and all third-party services (OpenStreetMaps, Firebase).     
 
-* Project Plan (SDP): [Delivery Date: 10/08/2025]       
+* Software Development Plan (SDP): [Delivery Date: 10/08/2025]       
     * Outlines the development approach, resource allocation (hardware, software, human), and the high-level task schedule for the project development lifecycle.       
 
 * Fika Minimum Viable Product (MVP): [Delivery Date: 11/05/2025]     
@@ -29,9 +29,36 @@ The following items will be delivered to the customer (instructor) during the co
 
 
 ## 4.2 Project Resources      
-### 4.2.1 Hardware Resources      
-### 4.2.2 Software Resources     
+### 4.2.1 Hardware Resources     
+Following are the hardware requirements for development of fika:  
 
+| Category          | Requirement                              |  
+|-------------------|------------------------------------------|  
+| Processor         | Intel i5 (8th Gen) or Apple M1 or higher |  
+| Hard Drive Space  | 20 GB free space                         |  
+| RAM               | 8 GB minimum, 16 GB recommended          |  
+| Display           | 1280x800 resolution or higher            |  
+| Network           | Broadband internet connection required   |  
+
+### 4.2.2 Software Resources            
+Following are the software requirements for development of fika:  
+
+| Category          | Requirement                                   |  
+|-------------------|-----------------------------------------------|  
+| Operating System  | macOS 12+, Windows 10+, or Ubuntu 22.04       |  
+| Framework         | Next.js (latest LTS)                          |  
+| Database          | PostgreSQL 15+                                |  
+| Hosting Tools     | Vercel CLI, Supabase CLI                      |  
+| Authentication    | Firebase SDK                                  |  
+| API Integration   | OpenStreetMaps API, optional Google Places API |  
+| Visualization     | Vega/Vega-Lite                                |  
+| Programming Tools | Node.js 18+, npm or yarn, Git, VS Code        |  
+
+**Notes:**  
+- Node.js 18+ is required for compatibility with Next.js.  
+- PostgreSQL 15+ provides advanced indexing and JSONB support, necessary for cafe metadata.  
+- Supabase is chosen for ease of integration with PostgreSQL and real-time APIs.
+  
 ## 4.3 Project Organization             
 
 ## 4.4 Schedule
