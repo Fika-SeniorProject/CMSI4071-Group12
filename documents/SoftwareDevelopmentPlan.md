@@ -28,7 +28,9 @@ The following items will be delivered to the customer (instructor) during the co
 * Final Repository & Documentation: Includes the full source code, deployment configuration, and a final demonstration of all features.    
 
 
-## 4.2 Project Resources      
+## 4.2 Project Resources   
+Resources are critical elements that must be managed to ensure project completion. This section details the hardware and software assets required for the development and deployment of Fika.      
+
 ### 4.2.1 Hardware Resources     
 Following are the hardware requirements for development of fika:  
 
