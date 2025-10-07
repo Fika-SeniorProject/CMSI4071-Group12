@@ -64,10 +64,19 @@ Following are the software requirements for development of fika:
 - PostgreSQL 15+ provides advanced indexing and JSONB support, necessary for cafe metadata.  
 - Supabase is chosen for ease of integration with PostgreSQL and real-time APIs.
   
-## 4.3 Project Organization             
+## 4.3 Project Organization    
+This section outlines the organizational structure of the Fika development team by assigning primary responsibilities for key functional areas and tasks to each team member. This approach ensures clear ownership and accountability across the project's lifecycle.   
+
+| **Team Member** | **Assigned Tasks & Responsibilities** |
+|------------------|---------------------------------------|
+| Giselle | User Logging Subsystem, Discover Page Filtering Logic |
+| Jillian | Cafe Page UI/UX, Map Functionality (OpenStreetMaps API) |
+| Kate | Home Page UI/UX, Data Visualization (Vega Charts) |
+| Ahtziri | Initial Discover Page UI/UX |
+| All Members | Initial Environment Setup, UX Design, Unit/Integration Testing, Manual Testing, Data Entry, API Research |
+
 
 ## 4.4 Schedule
-
 This section provides schedule information for the **fika** project.
 
 ---
