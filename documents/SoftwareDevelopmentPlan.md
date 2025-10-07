@@ -3,6 +3,15 @@ This Software Development Plan provides the details of the planned development f
 
 The Fika application addresses the current fragmentation of coffee shop information by condensing data from various platforms (e.g., Google Reviews, TikTok) into a single, specialized tool. Its core value lies in providing specific details relevant to coffee shop goers, such as Wi-Fi, outlets, and seating capacity, which are often absent from general restaurant review sites. The application will be developed using a Next.js frontend, a PostgreSQL database managed by Supabase, and integrated with OpenStreetMaps for geographical data visualization. Development activities include architectural design, implementation of the frontend (Discover, Cafe, and User Logging pages) and backend APIs, integration of third-party services (Firebase for authentication, Vega for visualization), and continuous testing.      
 
+The project's major milestones are scheduled as follows:    
+* Requirements Specification Finalization: Week 05    
+* Software Development Plan (SDP) Completion: Week 07     
+* Architectural Design Completion (SDD Part 1): Week 10    
+* Detailed Design & Test Plan Finalization (SDD Part 2): Week 12    
+* Alpha/Beta Demonstration & Critical Design Review: Weeks 13-14    
+* Final Project Demonstration: Week 15    
+* Final Product Delivery & Code Freeze: Week 16    
+
 ### 4.1.1 Project Deliverables      
 The following items will be delivered to the customer (instructor) during the course of the project:
 
@@ -54,7 +63,7 @@ Following are the software requirements for development of fika:
 | Framework         | Next.js (latest LTS)                          |  
 | Database          | PostgreSQL 15+                                |  
 | Hosting Tools     | Vercel CLI, Supabase CLI                      |  
-| Authentication    | Firebase SDK                                  |  
+| Authentication    | Supabase                                  |  
 | API Integration   | OpenStreetMaps API, optional Google Places API |  
 | Visualization     | Vega/Vega-Lite                                |  
 | Programming Tools | Node.js 18+, npm or yarn, Git, VS Code        |  
