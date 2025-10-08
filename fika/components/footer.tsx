@@ -21,6 +21,7 @@ export function Footer() {
             Supabase
           </a>
         </p>
+        <p>© 2025 fika</p>
       </div>
     </footer>
   );

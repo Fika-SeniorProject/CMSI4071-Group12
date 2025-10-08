@@ -4,12 +4,13 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 
 export function AuthButton() {
   const supabase = createClient();
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
