@@ -1,6 +1,7 @@
 import { DiscoverContent } from "@/components/discover-content";
 import Image from "next/image";
 import { fetchShops } from "@/app/actions";
+import { Suspense } from "react";
 
 export default async function DiscoverPage() {
   const initialShops = await fetchShops(1);
@@ -50,7 +51,9 @@ export default async function DiscoverPage() {
         className="absolute top-1/2 left-10 z-[-1]"
       />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
-        <DiscoverContent initialShops={initialShops} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DiscoverContent initialShops={initialShops} />
+        </Suspense>
       </div>
     </main>
   );
