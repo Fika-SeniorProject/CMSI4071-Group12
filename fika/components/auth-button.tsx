@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { User as UserIcon } from "lucide-react"; // Import User as UserIcon
 import { User } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 
@@ -39,7 +40,13 @@ export function AuthButton() {
   };
 
   return user ? (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-6">
+      <Button asChild variant="outline" size="sm">
+        <Link href="/profile" aria-label="Profile">
+          <UserIcon className="size-4" />
+          <span className="sr-only">Profile</span>
+        </Link>
+      </Button>
       <Button onClick={logout}>Logout</Button>
     </div>
   ) : (
