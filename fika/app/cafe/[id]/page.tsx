@@ -10,19 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import {
-  Wifi,
-  Plug,
-  Laptop,
-  Wine,
-  Car,
-  Users,
-  DollarSign,
-  Coffee,
-  MapPin,
-  MessageSquare,
-  BarChart2,
-} from "lucide-react";
+import { Wifi, Plug, Laptop, Wine, MapPin, BarChart2 } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -179,12 +167,12 @@ export default async function CafeDetailsPage({ params }: Props) {
                 <h2 className="text-2xl font-semibold mb-4">Reviews</h2>
                 <div className="space-y-6">
                   {ratings && ratings.length > 0 ? (
-                    ratings.map((rating: any) => (
+                    ratings.map((rating) => (
                       <Card key={rating.id} className="p-4">
                         <div className="flex flex-col">
                           <div className="flex items-center justify-between mb-2">
                             <span className="font-semibold text-sm">
-                              {rating.profiles?.username || "Anonymous"}
+                              {rating.profiles?.[0]?.username || "Anonymous"}
                             </span>
                             <span className="text-xs text-gray-500">
                               {new Date(rating.created_at).toLocaleDateString()}

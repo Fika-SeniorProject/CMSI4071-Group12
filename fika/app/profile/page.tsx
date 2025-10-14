@@ -11,11 +11,8 @@ import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Coffee, User, Bookmark } from "lucide-react"; // Imported Bookmark for Saved Cafes
+import { PostgrestError } from "@supabase/supabase-js";
 import { Database } from "@/lib/supabase/database.types";
-import Image from "next/image";
-
-// Helper type for the fetched data
-type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 // Corrected UserRating type to account for nested array in Supabase joins
 type UserRating = Database["public"]["Tables"]["ratings"]["Row"] & {
@@ -65,14 +62,13 @@ export default async function ProfilePage() {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })) as {
     data: UserRating[] | null;
-    error: any;
+    error: PostgrestError | null;
   };
 
   // 4. MOCK: Fetch user's saved cafes (Favorites) - Requires a 'user_favorites' table
   const { data: savedCafes } = {
     data: [
       // REPLACE WITH DATA
-
     ] as SavedCafe[],
   };
 
@@ -84,7 +80,6 @@ export default async function ProfilePage() {
 
   // New logic to format user join date
   const joinedDate = new Date(user.created_at);
-  const joinedYear = joinedDate.getFullYear();
   const joinedFullDate = joinedDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -133,7 +128,7 @@ export default async function ProfilePage() {
                 Your Saved Cafes
               </CardTitle>
               <CardDescription>
-                Cafes you've marked as favorites for later.
+                Cafes you&apos;ve marked as favorites for later.
               </CardDescription>
             </CardHeader>
             <CardContent>
