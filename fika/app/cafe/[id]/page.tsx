@@ -88,7 +88,7 @@ export default async function CafeDetailsPage({ params }: Props) {
     }
   };
 
-  const mainPhoto = shop.shop_photos?.[0]?.photo_url;
+  const mainPhoto = shop.shop_photos?.[0]?.photo_url || "/hotLatte.png";
   const communityRatings = {
     vibe: 4.5,
     coffee: 4.8,
@@ -99,17 +99,15 @@ export default async function CafeDetailsPage({ params }: Props) {
     <main className="min-h-screen flex flex-col items-center bg-gray-50/50">
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <div className="flex-1 flex flex-col gap-10 max-w-6xl p-5 w-full">
-          {mainPhoto && (
-            <div className="w-full h-64 md:h-80 relative rounded-xl overflow-hidden shadow-lg">
-              <Image
-                src={mainPhoto}
-                alt={`${shop.name} hero image`}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
+          <div className="w-full h-64 md:h-80 relative rounded-xl overflow-hidden shadow-lg">
+            <Image
+              src={mainPhoto}
+              alt={`${shop.name} hero image`}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
           <div className="flex flex-col gap-2 text-center items-center">
             <div className="flex items-center gap-3">
