@@ -45,49 +45,6 @@ export default async function CafeDetailsPage({ params }: Props) {
     notFound();
   }
 
-  const getVibeColor = (vibe: string | null) => {
-    switch (vibe) {
-      case "Minimalistic":
-        return "bg-gray-100 text-gray-800";
-      case "Cool":
-        return "bg-blue-100 text-blue-800";
-      case "Corporate":
-        return "bg-slate-100 text-slate-800";
-      case "Cozy":
-        return "bg-orange-100 text-orange-800";
-      case "Beachy":
-        return "bg-cyan-100 text-cyan-800";
-      case "Trendy":
-        return "bg-purple-100 text-purple-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-  const getPricingColor = (pricing: string | null) => {
-    switch (pricing) {
-      case "$":
-        return "bg-green-100 text-green-800";
-      case "$$":
-        return "bg-yellow-100 text-yellow-800";
-      case "$$$":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-  const getBusynessColor = (busyness: string | null) => {
-    switch (busyness) {
-      case "Quiet":
-        return "bg-green-100 text-green-800";
-      case "Medium":
-        return "bg-yellow-100 text-yellow-800";
-      case "Very":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
   const mainPhoto = shop.shop_photos?.[0]?.photo_url;
   const communityRatings = {
     vibe: 4.5,
@@ -232,28 +189,19 @@ export default async function CafeDetailsPage({ params }: Props) {
                   {shop.vibe && (
                     <div className="flex items-center justify-between">
                       {" "}
-                      <span>Vibe</span>{" "}
-                      <Badge className={getVibeColor(shop.vibe)}>
-                        {shop.vibe}
-                      </Badge>{" "}
+                      <span>Vibe</span> <Badge>{shop.vibe}</Badge>{" "}
                     </div>
                   )}
                   {shop.pricing && (
                     <div className="flex items-center justify-between">
                       {" "}
-                      <span>Pricing</span>{" "}
-                      <Badge className={getPricingColor(shop.pricing)}>
-                        {shop.pricing}
-                      </Badge>{" "}
+                      <span>Pricing</span> <Badge>{shop.pricing}</Badge>{" "}
                     </div>
                   )}
                   {shop.busyness && (
                     <div className="flex items-center justify-between">
                       {" "}
-                      <span>Busyness</span>{" "}
-                      <Badge className={getBusynessColor(shop.busyness)}>
-                        {shop.busyness}
-                      </Badge>{" "}
+                      <span>Busyness</span> <Badge>{shop.busyness}</Badge>{" "}
                     </div>
                   )}
                   {shop.seating && (
