@@ -5,23 +5,62 @@ import { DiscoverFilters } from "@/components/discover-filters";
 import { Footer } from "@/components/footer";
 
 import { Constants } from "@/lib/supabase/database.types";
+import { createClient } from "@/lib/supabase/client";
 import { CoffeeShop } from "@/lib/types";
-import { useState } from "react";
-import { LoadMore } from "./load-more";
-import { fetchShops } from "@/app/actions";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export function DiscoverContent({ initialShops }: { initialShops: CoffeeShop[] }) {
-  const [shops, setShops] = useState<CoffeeShop[]>(initialShops);
-  const [page, setPage] = useState(1);
+export function DiscoverContent({
+  initialShops,
+}: {
+  initialShops?: CoffeeShop[];
+}) {
+  const [shops, setShops] = useState<CoffeeShop[]>(initialShops || []);
+  const searchParams = useSearchParams();
 
-  const loadMoreShops = async () => {
-    const nextPage = page + 1;
-    const newShops = await fetchShops(nextPage);
-    if (newShops.length > 0) {
-      setPage(nextPage);
-      setShops((prevShops) => [...prevShops, ...newShops]);
+  useEffect(() => {
+    const fetchShops = async () => {
+      const supabase = createClient();
+      let query = supabase.from("coffee_shops").select(
+        `
+        *,
+        shop_photos (
+          photo_url
+        )
+      `
+      );
+
+      if (searchParams.get("city")) {
+        query = query.eq("city", searchParams.get("city") as string);
+      }
+      if (searchParams.get("parking")) {
+        query = query.eq("parking", searchParams.get("parking") as string);
+      }
+      if (searchParams.get("seating")) {
+        query = query.eq("seating", searchParams.get("seating") as string);
+      }
+      if (searchParams.get("vibe")) {
+        query = query.eq("vibe", searchParams.get("vibe") as string);
+      }
+      if (searchParams.get("has_wifi")) {
+        query = query.eq("has_wifi", searchParams.get("has_wifi") === "Yes");
+      }
+      if (searchParams.get("has_outlets")) {
+        query = query.eq(
+          "has_outlets",
+          searchParams.get("has_outlets") === "Yes"
+        );
+      }
+
+      const { data: shops } = await query;
+      setShops(shops || []);
+    };
+
+    const hasSearchParams = Array.from(searchParams.keys()).length > 0;
+    if (initialShops === undefined || hasSearchParams) {
+      fetchShops();
     }
-  };
+  }, [searchParams, initialShops]);
 
   return (
     <>
@@ -46,14 +85,19 @@ export function DiscoverContent({ initialShops }: { initialShops: CoffeeShop[] }
           }
           vibes={Constants.public.Enums.Vibe as unknown as string[]}
         />
-        <section className="flex flex-col gap-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {shops.map((shop) => (
-              <CafeQuickView key={shop.id} shop={shop} />
-            ))}
+        {shops.length > 0 ? (
+          <section className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {shops.map((shop) => (
+                <CafeQuickView key={shop.id} shop={shop} />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="text-center">
+            <p>No shops found matching your criteria.</p>
           </div>
-        </section>
-        <LoadMore loadMoreShops={loadMoreShops} />
+        )}
       </div>
       <Footer />
     </>

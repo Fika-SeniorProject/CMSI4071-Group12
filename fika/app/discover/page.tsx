@@ -1,11 +1,10 @@
+"use client";
+
+import { Suspense } from "react";
 import { DiscoverContent } from "@/components/discover-content";
 import Image from "next/image";
-import { fetchShops } from "@/app/actions";
-import { Suspense } from "react";
 
-export default async function DiscoverPage() {
-  const initialShops = await fetchShops(1);
-
+export default function DiscoverPage() {
   return (
     <main className="min-h-screen flex flex-col items-center pt-12 relative">
       <Image
@@ -50,9 +49,16 @@ export default async function DiscoverPage() {
         height={95}
         className="absolute top-1/2 left-10 z-[-1]"
       />
+      <Image
+        src="/cakeSlice.png"
+        alt="decoration"
+        width={120}
+        height={120}
+        className="absolute bottom-1/4 left-10 z-[-1]"
+      />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
-        <Suspense fallback={<div>Loading...</div>}>
-          <DiscoverContent initialShops={initialShops} />
+        <Suspense fallback={<div>Loading discover content...</div>}>
+          <DiscoverContent />
         </Suspense>
       </div>
     </main>

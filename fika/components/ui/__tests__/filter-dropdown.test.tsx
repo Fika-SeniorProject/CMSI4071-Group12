@@ -2,11 +2,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { FilterDropdown } from '../filter-dropdown';
-import { vi } from 'vitest';
 
-vi.mock('next/navigation', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: vi.fn(),
+    push: jest.fn(),
   }),
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),

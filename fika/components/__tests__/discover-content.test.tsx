@@ -1,25 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import { DiscoverContent } from "../discover-content";
-import { vi } from "vitest";
 import { CoffeeShop } from "@/lib/types";
 
-vi.mock('react-intersection-observer', () => ({
-  useInView: () => ({
-    ref: vi.fn(),
-    inView: false,
-  }),
-}));
-
-vi.mock("next/navigation", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
+    push: jest.fn(),
+    replace: jest.fn(),
   }),
   usePathname: () => "/",
   useSearchParams: () => new URLSearchParams(),
 }));
 
-vi.mock("@/lib/supabase/database.types", () => ({
+jest.mock("@/lib/supabase/database.types", () => ({
   Constants: {
     public: {
       Enums: {

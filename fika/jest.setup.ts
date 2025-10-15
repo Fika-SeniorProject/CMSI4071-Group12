@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-const mockIntersectionObserver = vi.fn();
+const mockIntersectionObserver = jest.fn();
 mockIntersectionObserver.mockReturnValue({
   observe: () => null,
   unobserve: () => null,

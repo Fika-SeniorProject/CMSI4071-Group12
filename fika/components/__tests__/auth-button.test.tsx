@@ -1,30 +1,29 @@
 import { render, screen } from "@testing-library/react";
 import { AuthButton } from "../auth-button";
-import { vi } from "vitest";
 
 const mockUser = { id: "1", email: "test@example.com" };
 
-vi.mock("next/navigation", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => ({
-    refresh: vi.fn(),
+    refresh: jest.fn(),
   }),
 }));
 
 const mockSupabase = {
   auth: {
-    onAuthStateChange: vi.fn().mockReturnValue({
+    onAuthStateChange: jest.fn().mockReturnValue({
       data: {
         subscription: {
-          unsubscribe: vi.fn(),
+          unsubscribe: jest.fn(),
         },
       },
     }),
-    getUser: vi.fn().mockResolvedValue({ data: { user: null } }),
-    signOut: vi.fn(),
+    getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+    signOut: jest.fn(),
   },
 };
 
-vi.mock("@/lib/supabase/client", () => ({
+jest.mock("@/lib/supabase/client", () => ({
   createClient: () => mockSupabase,
 }));
 

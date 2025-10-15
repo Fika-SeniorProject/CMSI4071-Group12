@@ -1,19 +1,18 @@
 
 import { render, screen } from '@testing-library/react';
 import { LoginForm } from '../login-form';
-import { vi } from 'vitest';
 
-vi.mock('next/navigation', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
+    push: jest.fn(),
+    replace: jest.fn(),
   }),
 }));
 
-vi.mock('@/lib/supabase/client', () => ({
+jest.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
     auth: {
-      signInWithPassword: vi.fn(),
+      signInWithPassword: jest.fn(),
     },
   }),
 }));

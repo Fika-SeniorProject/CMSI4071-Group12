@@ -1,18 +1,17 @@
 
 import { render, screen } from '@testing-library/react';
 import { UpdatePasswordForm } from '../update-password-form';
-import { vi } from 'vitest';
 
-vi.mock('next/navigation', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: vi.fn(),
+    push: jest.fn(),
   }),
 }));
 
-vi.mock('@/lib/supabase/client', () => ({
+jest.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
     auth: {
-      updateUser: vi.fn(),
+      updateUser: jest.fn(),
     },
   }),
 }));

@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DiscoverFilters } from '../discover-filters';
-import { vi } from 'vitest';
 
 const mockRouter = {
-  push: vi.fn(),
+  push: jest.fn(),
 };
 
-vi.mock('next/navigation', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => mockRouter,
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
