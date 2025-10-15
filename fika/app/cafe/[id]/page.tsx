@@ -96,7 +96,7 @@ export default async function CafeDetailsPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gray-50/50">
+    <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <div className="flex-1 flex flex-col gap-10 max-w-6xl p-5 w-full">
           {mainPhoto ? (
