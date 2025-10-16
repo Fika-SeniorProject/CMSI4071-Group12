@@ -34,3 +34,34 @@ The system integrates with several third-party software components and APIs:
   * **Cafe Page:** Displays individual cafe details, reviews, and data trends.
   * **User Logging (Favorites/Reviews):** Allows users to save cafes and input new reviews.
   * **Authentication UI:** Provides dedicated login/register screens.      
+
+## 6.2 Architectural Design      
+The fika application is based on a three-tier architecture consisting of the Presentation Layer (Frontend), the Application/Business Layer (Backend API and Logic), and the Data Layer (Database). This structure ensures separation of concerns, scalability, and maintainability.        
+
+The system is partitioned into the following four top-level Computer Software Configuration Items (CSCI):   
+1. **Frontend CSC:** The user-facing web application.    
+2. **Backend CSC:** The core business logic, data management, and API endpoints.
+3. **Authentication CSC:** The dedicated system for user account management, managed by Supabase.
+4. **Hosting & Infrastructure CSC:** The deployment and environment configuration.         
+ 
+### 6.2.1 Major Software Components       
+The major software components are derived from the CSCI breakdown:      
+* **Frontend CSC (Presentation Layer):** Built with Next.js. It contains the user interface components:
+  * **Discover Page CSU:** Manages cafe search, filtering, and map visualization (using OpenStreetMaps).
+  * **Cafe Page CSU:** Renders individual cafe details, aggregated ratings, and trend visualizations (using Vega charts).
+  * **User Logging CSU:** Manages user-specific actions like saving favorite cafes and providing an interface for writing new reviews.     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
