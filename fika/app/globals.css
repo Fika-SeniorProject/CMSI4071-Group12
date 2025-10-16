@@ -67,7 +67,9 @@
   }
 }
 
-.after-hours-theme {
+body.after-hours-theme {
+  background-color: hsl(220 20% 10%) !important; /* Darker background */
+  color: hsl(30 100% 95%) !important; /* Lighter, warmer text */
   --background: 220 20% 10%; /* Darker background */
   --foreground: 30 100% 95%; /* Lighter, warmer text */
   --card: 220 20% 15%; /* Darker card background */
@@ -95,7 +97,7 @@
 }
 
 .disco-ball-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%) translateY(-100%);
@@ -128,8 +130,8 @@
 }
 
 .star-3 {
-  bottom: 15%;
-  left: 30%;
+  bottom: 0%;
+  left: 10%;
   animation-delay: 1.1s;
 }
 

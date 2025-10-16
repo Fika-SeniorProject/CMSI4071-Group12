@@ -8,12 +8,11 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Wifi, Plug, Laptop, Heart, DollarSign, Users, Armchair, ParkingCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
 
 type CoffeeShop = Database["public"]["Tables"]["coffee_shops"]["Row"];
-
 
 type CafeDetailsClientProps = {
   shop: CoffeeShop;
@@ -22,18 +21,7 @@ type CafeDetailsClientProps = {
 export default function CafeDetailsClient({
   shop,
 }: CafeDetailsClientProps) {
-  const [isAfterHours, setIsAfterHours] = useState(false);
-
-  useEffect(() => {
-    if (isAfterHours) {
-      document.body.classList.add("after-hours-theme");
-    } else {
-      document.body.classList.remove("after-hours-theme");
-    }
-    return () => {
-      document.body.classList.remove("after-hours-theme");
-    };
-  }, [isAfterHours]);
+  const { isAfterHours, setIsAfterHours } = useTheme();
 
   return (
     <main
@@ -41,25 +29,6 @@ export default function CafeDetailsClient({
         "min-h-screen flex flex-col items-center relative overflow-hidden"
       )}
     >
-      {isAfterHours && (
-        <>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 disco-ball-container">
-            <Image
-              src="/discoBall.png"
-              alt="Disco Ball"
-              width={100}
-              height={100}
-              className="disco-ball"
-            />
-          </div>
-          {/* Star icons */}
-          <div className="star star-1">⭐</div>
-          <div className="star star-2">⭐</div>
-          <div className="star star-3">⭐</div>
-          <div className="star star-4">⭐</div>
-          <div className="star star-5">⭐</div>
-        </>
-      )}
       <div className="flex-1 w-full flex flex-col gap-12 items-center p-8 max-w-4xl mx-auto">
         <div className="flex flex-col gap-4 text-center items-center">
           <div className="flex items-center gap-4">
@@ -72,7 +41,7 @@ export default function CafeDetailsClient({
                 onClick={() => setIsAfterHours(!isAfterHours)}
               >
                 <Image
-                  src="/wineGlass.png"
+                  src={isAfterHours ? "/wineGlassDark.png" : "/wineGlass.png"}
                   alt="Wine Glass Icon"
                   width={40}
                   height={40}
@@ -86,7 +55,7 @@ export default function CafeDetailsClient({
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-8 text-lg p-6">
             {shop.vibe && (
               <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[150px]">
+                <span className="flex items-center gap-3 font-medium min-w-[180px]">
                   <Heart size={24} /> Vibe
                 </span>
                 <Badge className="text-lg px-3 py-1">{shop.vibe}</Badge>
@@ -102,7 +71,7 @@ export default function CafeDetailsClient({
             )}
             {shop.busyness && (
               <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[150px]">
+                <span className="flex items-center gap-3 font-medium min-w-[180px]">
                   <Users size={24} /> Busyness
                 </span>
                 <Badge className="text-lg px-3 py-1">{shop.busyness}</Badge>
@@ -113,19 +82,15 @@ export default function CafeDetailsClient({
                 <span className="flex items-center gap-3 font-medium min-w-[180px]">
                   <Armchair size={24} /> Seating
                 </span>
-                <Badge variant="outline" className="text-lg px-3 py-1">
-                  {shop.seating}
-                </Badge>
+                <Badge variant="outline" className="text-lg px-3 py-1">{shop.seating}</Badge>
               </div>
             )}
             {shop.parking && (
               <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[150px]">
+                <span className="flex items-center gap-3 font-medium min-w-[180px]">
                   <ParkingCircle size={24} /> Parking
                 </span>
-                <Badge variant="outline" className="text-lg px-3 py-1">
-                  {shop.parking}
-                </Badge>
+                <Badge variant="outline" className="text-lg px-3 py-1">{shop.parking}</Badge>
               </div>
             )}
 
@@ -133,21 +98,15 @@ export default function CafeDetailsClient({
               <span className="flex items-center gap-3 font-medium min-w-[180px]">
                 <Wifi size={24} /> WiFi
               </span>
-              <Badge
-                variant={shop.has_wifi ? "default" : "secondary"}
-                className="text-lg px-3 py-1"
-              >
+              <Badge variant={shop.has_wifi ? "default" : "secondary"} className="text-lg px-3 py-1">
                 {shop.has_wifi ? "Yes" : "No"}
               </Badge>
             </div>
             <div className="flex items-center gap-x-8">
-              <span className="flex items-center gap-3 font-medium min-w-[150px]">
+              <span className="flex items-center gap-3 font-medium min-w-[180px]">
                 <Plug size={24} /> Outlets
               </span>
-              <Badge
-                variant={shop.has_outlets ? "default" : "secondary"}
-                className="text-lg px-3 py-1"
-              >
+              <Badge variant={shop.has_outlets ? "default" : "secondary"} className="text-lg px-3 py-1">
                 {shop.has_outlets ? "Yes" : "No"}
               </Badge>
             </div>
@@ -156,7 +115,9 @@ export default function CafeDetailsClient({
                 <Laptop size={24} /> Laptop Friendly
               </span>
               <Badge
-                variant={shop.is_laptop_friendly ? "default" : "secondary"}
+                variant={
+                  shop.is_laptop_friendly ? "default" : "secondary"
+                }
                 className="text-lg px-3 py-1"
               >
                 {shop.is_laptop_friendly ? "Yes" : "No"}
@@ -167,14 +128,14 @@ export default function CafeDetailsClient({
 
         <div className="w-full relative h-64 md:h-80 mt-8">
           <Image
-            src="/cafeExterior.png"
+            src={isAfterHours ? "/wineBarExterior.png" : "/cafeExterior.png"}
             alt="Cafe exterior"
             fill
             className="object-contain"
           />
         </div>
       </div>
-      <Footer />
+      <Footer isAfterHours={isAfterHours} />
     </main>
   );
 }

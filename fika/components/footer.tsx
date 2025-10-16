@@ -1,11 +1,15 @@
 import Image from "next/image";
 
-export function Footer() {
+type FooterProps = {
+  isAfterHours?: boolean;
+};
+
+export function Footer({ isAfterHours }: FooterProps) {
   return (
     <footer className="w-full flex items-start justify-center border-t mx-auto text-center text-xs gap-8 pb-4">
       <div className="flex flex-col items-center gap-4">
         <Image
-          src="/tablescape.png"
+          src={isAfterHours ? "/tablescapeDark.png" : "/tablescape.png"}
           alt="Table logo"
           width={300}
           height={300}

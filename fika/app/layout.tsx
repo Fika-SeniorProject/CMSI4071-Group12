@@ -3,7 +3,10 @@ import { NavBar } from "@/components/nav-bar";
 import type { Metadata } from "next";
 import { Karla } from "next/font/google";
 import localFont from "next/font/local";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { ThemeProvider as CustomThemeProvider } from "./theme-context";
+import DiscoBallAndStars from "./disco-ball-and-stars";
+import BodyWrapper from "./body-wrapper";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -48,17 +51,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${karla.className} ${kate.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NavBar authButton={<AuthButton />} />
-          {children}
-        </ThemeProvider>
-      </body>
+      <CustomThemeProvider>
+        <BodyWrapper karlaClassName={karla.className} kateVariable={kate.variable}>
+          <DiscoBallAndStars />
+          <NextThemesProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NavBar authButton={<AuthButton />} />
+            {children}
+          </NextThemesProvider>
+        </BodyWrapper>
+      </CustomThemeProvider>
     </html>
   );
 }
