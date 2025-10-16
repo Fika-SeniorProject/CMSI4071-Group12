@@ -43,7 +43,7 @@ export function AuthButton() {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [supabase.auth]);
+  }, [supabase, supabase.auth]);
 
   const logout = async () => {
     await supabase.auth.signOut();

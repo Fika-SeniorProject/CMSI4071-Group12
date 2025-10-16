@@ -18,10 +18,6 @@ type UserRating = Database["public"]["Tables"]["ratings"]["Row"] & {
   coffee_shops: { name: string | null } | null;
 };
 
-type SavedCafe = Database["public"]["Tables"]["ratings"]["Row"] & {
-  coffee_shops: { name: string | null } | null;
-};
-
 export default async function ProfilePage() {
   const supabase = await createClient();
 
@@ -57,7 +53,7 @@ export default async function ProfilePage() {
     error: PostgrestError | null;
   };
 
-  const { data: savedCafes, error: savedCafesError } = await supabase
+  const { data: savedCafes, error: savedCafesError } = (await supabase
     .from("ratings")
     .select(
       `
@@ -70,7 +66,10 @@ export default async function ProfilePage() {
     )
     .eq("user_id", user.id)
     .is("drinks_quality", null)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })) as {
+    data: UserRating[] | null;
+    error: PostgrestError | null;
+  };
 
   if (profileError || ratingsError || savedCafesError) {
     console.error(

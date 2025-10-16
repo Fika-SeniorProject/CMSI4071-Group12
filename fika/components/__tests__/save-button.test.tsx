@@ -1,7 +1,6 @@
 
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { SaveButton } from "../save-button";
-import { createClient } from "@/lib/supabase/client";
 
 // Mock the Supabase client
 jest.mock("@/lib/supabase/client", () => ({
