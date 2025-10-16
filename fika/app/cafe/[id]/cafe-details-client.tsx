@@ -2,20 +2,28 @@
 
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Bookmark } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
+import { SaveButton } from "@/components/save-button";
+import { User } from "@supabase/supabase-js";
 
 type CoffeeShop = Database["public"]["Tables"]["coffee_shops"]["Row"];
 
 type CafeDetailsClientProps = {
   shop: CoffeeShop;
+  user: User | null;
+  isInitiallySaved: boolean;
 };
 
-export default function CafeDetailsClient({ shop }: CafeDetailsClientProps) {
+export default function CafeDetailsClient({ shop, user, isInitiallySaved }: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
+  const router = useRouter();
 
   return (
     <main
@@ -29,6 +37,22 @@ export default function CafeDetailsClient({ shop }: CafeDetailsClientProps) {
             <h1 className="text-5xl md:text-6xl font-bold font-kate">
               {shop.name}
             </h1>
+                        {user ? (
+              <SaveButton
+                shopId={shop.id}
+                isInitiallySaved={isInitiallySaved}
+                userId={user.id}
+              />
+            ) : (
+              <Button
+                variant="default"
+                onClick={() => router.push("/auth/login")}
+                className="flex items-center gap-2"
+              >
+                <Bookmark className="h-5 w-5" />
+                Save
+              </Button>
+            )}
             {shop.wine_bar && (
               <div
                 className="cursor-pointer"
