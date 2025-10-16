@@ -25,7 +25,7 @@ The system integrates with several third-party software components and APIs:
 * **OpenStreetMaps API:** Used to provide geographical data on cafes and to visualize cafe locations on the Discover Page map. It is a free and open alternative to commercial mapping APIs.    
 
 ### 6.1.2.3 Human Interfaces
-* User Interface (UI): The system provides a web-based Graphical User Interface (GUI) accessible via a standard web browser (Chrome, Safari, etc.). The interface is divided into key areas:
+* **User Interface (UI):** The system provides a web-based Graphical User Interface (GUI) accessible via a standard web browser (Chrome, Safari, etc.). The interface is divided into key areas:
   * **Discover Page:** Provides the interface to search, filter, and view cafes on an interactive map.
   * **Cafe Page:** Displays individual cafe details, reviews, and data trends.
   * **User Logging (Favorites/Reviews):** Allows users to save cafes and input new reviews.
