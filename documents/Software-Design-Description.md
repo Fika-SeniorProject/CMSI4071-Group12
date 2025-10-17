@@ -34,3 +34,46 @@ The system integrates with several third-party software components and APIs:
   * **Cafe Page:** Displays individual cafe details, reviews, and data trends.
   * **User Logging (Favorites/Reviews):** Allows users to save cafes and input new reviews.
   * **Authentication UI:** Provides dedicated login/register screens.      
+
+## 6.2 Architectural Design      
+The fika application is based on a three-tier architecture consisting of the Presentation Layer (Frontend), the Application/Business Layer (Backend API and Logic), and the Data Layer (Database). This structure ensures separation of concerns, scalability, and maintainability.        
+
+The system is partitioned into the following four top-level Computer Software Configuration Items (CSCI):   
+1. **Frontend CSC:** The user-facing web application.    
+2. **Backend CSC:** The core business logic, data management, and API endpoints.
+3. **Authentication CSC:** The dedicated system for user account management, managed by Supabase.
+4. **Hosting & Infrastructure CSC:** The deployment and environment configuration.         
+ 
+### 6.2.1 Major Software Components       
+The major software components are derived from the CSCI breakdown:      
+* **Frontend CSC (Presentation Layer):** Built with Next.js. It contains the user interface components:
+  * **Discover Page CSU:** Manages cafe search, filtering, and map visualization (using OpenStreetMaps).
+  * **Cafe Page CSU:** Renders individual cafe details, aggregated ratings, and trend visualizations (using Vega charts).
+  * **User Logging CSU:** Manages user-specific actions like saving favorite cafes and providing an interface for writing new reviews.
+    
+* **Backend CSC (Application/Data Layer):** Hosted on Supabase and powered by PostgreSQL
+  * **Database CSU:** Manages the database schema for storing CafeTable (details, attributes), Review Table (user reviews, ratings), and UserTable (authentication-linked user data).
+
+* **Authentication CSC:** A dedicated Supabase-based system for user login, signup, and account management
+  * **Auth CSU:** Manages the core login, logout, and secure session management.
+  * **AuthUI module:** Provides the user interface for login and registration screens.
+  
+* **Hosting & Infrastructure CSC:**
+  * **Hosting CSU:** Manages the CI/CD pipelines and deployment of the application components. This includes VercelDeploy (frontend) and SupabaseDeploy (backend services).
+
+### 6.2.2 Major Software Interactions
+Communication in the fika architecture is primarily through a client-server model over HTTPS/TLS.     
+
+* **Frontend-Backend/API Interaction:**     
+  * The Frontend CSC (Next.js) communicates with the Backend CSC's API CSU via REST/GraphQL endpoints.     
+  * The Backend API calls abstract the direct connection to the PostgreSQL database (Database CSU), ensuring business logic is enforced before data retrieval or persistence.   
+
+* **Authentication Interaction:**
+  * The Frontend CSC interfaces with the Supabase Authentication CSC for user sign-up and login.
+  * The Supabase system provides a secure authentication token upon successful login, which the Frontend uses in subsequent API calls to the Backend.
+  * The Backend uses the authentication token to verify the user's identity and restrict access to features like submitting reviews or accessing saved cafes.
+
+* **External API Interaction:**
+  * The Frontend's MapView module uses the OpenStreetMaps API to render geographical data and cafe locations.
+  * The Frontend's Cafe Page CSU uses the Vega/Vega-Lite library to render visualizations after retrieving the necessary aggregated data from the Backend API
+

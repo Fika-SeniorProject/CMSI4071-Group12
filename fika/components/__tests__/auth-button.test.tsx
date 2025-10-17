@@ -21,6 +21,13 @@ const mockSupabase = {
     getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
     signOut: jest.fn(),
   },
+  from: jest.fn(() => ({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        single: jest.fn(() => Promise.resolve({ data: { username: "testuser" } })),
+      })),
+    })),
+  })),
 };
 
 jest.mock("@/lib/supabase/client", () => ({
