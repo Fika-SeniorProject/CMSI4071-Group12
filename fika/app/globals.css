@@ -173,4 +173,5 @@ body.after-hours-theme {
 
 .animate-pop {
   animation: pop 0.25s ease-in-out;
+  transform-origin: center;
 }

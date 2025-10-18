@@ -2,11 +2,11 @@
 
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+//import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bookmark } from "lucide-react";
+//import { Bookmark } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
@@ -27,7 +27,7 @@ export default function CafeDetailsClient({
   isInitiallySaved,
 }: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
-  const router = useRouter();
+  //const router = useRouter();
 
   return (
     <main
@@ -47,7 +47,6 @@ export default function CafeDetailsClient({
               isInitiallySaved={isInitiallySaved}
               userId={user?.id ?? null}
             />
-
             {shop.wine_bar && (
               <div
                 className="cursor-pointer"
