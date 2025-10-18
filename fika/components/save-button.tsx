@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -12,12 +11,18 @@ type SaveButtonProps = {
   userId: string;
 };
 
-export function SaveButton({ shopId, isInitiallySaved, userId }: SaveButtonProps) {
+export function SaveButton({
+  shopId,
+  isInitiallySaved,
+  userId,
+}: SaveButtonProps) {
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
+  const [pop, setPop] = useState(false);
 
   const handleClick = async () => {
+    if (isLoading) return;
     setIsLoading(true);
 
     if (isSaved) {
@@ -45,18 +50,36 @@ export function SaveButton({ shopId, isInitiallySaved, userId }: SaveButtonProps
       }
     }
 
+    setPop(true);
+    setTimeout(() => setPop(false), 100);
+
     setIsLoading(false);
   };
 
   return (
-    <Button
-      variant={isSaved ? "secondary" : "default"}
+    <button
       onClick={handleClick}
       disabled={isLoading}
-      className="flex items-center gap-2"
+      aria-label={isSaved ? "Unsave cafe" : "Save cafe"}
+      className="appearance-none bg-transparent border-none outline-none p-0 m-0 cursor-pointer"
+      style={{
+        background: "none",
+        border: "none",
+        boxShadow: "none",
+        borderRadius: 0,
+      }}
     >
-      <Bookmark className="h-5 w-5" />
-      {isSaved ? "Saved" : "Save"}
-    </Button>
+      <Bookmark
+        size={32}
+        strokeWidth={2}
+        color="black"
+        fill={isSaved ? "black" : "transparent"}
+        style={{
+          transform: pop ? "scale(1.3)" : "scale(1)",
+          transition: "transform 0.10s ease-in-out",
+          transformOrigin: "center",
+        }}
+      />
+    </button>
   );
 }

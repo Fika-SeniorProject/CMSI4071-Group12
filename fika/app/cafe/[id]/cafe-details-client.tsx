@@ -21,7 +21,11 @@ type CafeDetailsClientProps = {
   isInitiallySaved: boolean;
 };
 
-export default function CafeDetailsClient({ shop, user, isInitiallySaved }: CafeDetailsClientProps) {
+export default function CafeDetailsClient({
+  shop,
+  user,
+  isInitiallySaved,
+}: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
   const router = useRouter();
 
@@ -37,7 +41,7 @@ export default function CafeDetailsClient({ shop, user, isInitiallySaved }: Cafe
             <h1 className="text-5xl md:text-6xl font-bold font-kate">
               {shop.name}
             </h1>
-                        {user ? (
+            {user ? (
               <SaveButton
                 shopId={shop.id}
                 isInitiallySaved={isInitiallySaved}

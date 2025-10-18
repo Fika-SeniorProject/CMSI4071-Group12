@@ -24,6 +24,7 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -33,6 +34,7 @@ export function SignUpForm({
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
+    setMessage(null);
 
     if (password !== repeatPassword) {
       setError("Passwords do not match");
@@ -41,37 +43,35 @@ export function SignUpForm({
     }
 
     try {
-          const {
-            data: { user },
-            error,
-          } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              emailRedirectTo: `${window.location.origin}/protected`,
-            },
-          });
-      
-          if (error) {
-            throw error;
-          }
-      
-                    if (user) {
-      
-                      const { error: profileError } = await supabase
-      
-                        .from("profiles")
-      
-                        .insert({ id: user.id, username: name });
-      
-                      if (profileError) {
-      
-                        throw profileError;
-      
-                      }
-      
-                    }
-      router.push("/auth/sign-up-success");
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/login`,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setMessage(
+        "Account created, please check your email to verify your account!"
+      );
+
+      /* if (user) {
+        const { error: profileError } = await supabase
+          .from("profiles")
+          .insert({ id: user.id, username: name });
+
+        if (profileError) {
+          throw profileError;
+        }
+      } */
+      //router.push("/auth/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -125,7 +125,7 @@ export function SignUpForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="repeat-password">Repeat Password</Label>
+                  <Label htmlFor="repeat-password">Confirm Password</Label>
                 </div>
                 <Input
                   id="repeat-password"
@@ -136,7 +136,14 @@ export function SignUpForm({
                 />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              {message && (
+                <p className="text-sm text-center font-bold">{message}</p>
+              )}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading || !!message}
+              >
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
             </div>
