@@ -41,22 +41,13 @@ export default function CafeDetailsClient({
             <h1 className="text-5xl md:text-6xl font-bold font-kate">
               {shop.name}
             </h1>
-            {user ? (
-              <SaveButton
-                shopId={shop.id}
-                isInitiallySaved={isInitiallySaved}
-                userId={user.id}
-              />
-            ) : (
-              <Button
-                variant="default"
-                onClick={() => router.push("/auth/login")}
-                className="flex items-center gap-2"
-              >
-                <Bookmark className="h-5 w-5" />
-                Save
-              </Button>
-            )}
+            {/* {user ? ( */}
+            <SaveButton
+              shopId={shop.id}
+              isInitiallySaved={isInitiallySaved}
+              userId={user?.id ?? null}
+            />
+
             {shop.wine_bar && (
               <div
                 className="cursor-pointer"

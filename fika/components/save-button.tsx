@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 type SaveButtonProps = {
   shopId: number;
   isInitiallySaved: boolean;
-  userId: string;
+  userId: string | null;
 };
 
 export function SaveButton({
@@ -22,6 +21,11 @@ export function SaveButton({
   const [pop, setPop] = useState(false);
 
   const handleClick = async () => {
+    if (!userId) {
+      window.location.href = "/auth/login";
+      return;
+    }
+
     if (isLoading) return;
     setIsLoading(true);
 
@@ -73,7 +77,7 @@ export function SaveButton({
         size={32}
         strokeWidth={2}
         color="black"
-        fill={isSaved ? "black" : "transparent"}
+        fill={userId && isSaved ? "black" : "transparent"}
         style={{
           transform: pop ? "scale(1.3)" : "scale(1)",
           transition: "transform 0.10s ease-in-out",

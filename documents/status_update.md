@@ -62,8 +62,10 @@
 
 **Accomplishments since last report:**
 
+- Updated bookmark button
+- Updated log in page
+- Fixed inconsistency with bookmark button when logged out
+
 - **Scheduled tasks to be done by next report:**
 
 - **Noteworthy risks, concerns, or problems:**
-
--
