@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -5,77 +7,125 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
 import { redirect } from "next/navigation";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Coffee, User, Bookmark } from "lucide-react"; // Imported Bookmark for Saved Cafes
+import { Coffee, User, Bookmark } from "lucide-react";
 import { PostgrestError } from "@supabase/supabase-js";
 import { Database } from "@/lib/supabase/database.types";
+import { useState, useEffect } from "react";
+import { User as SupabaseUser } from "@supabase/supabase-js";
+import { SaveButton } from "@/components/save-button";
 
 type UserRating = Database["public"]["Tables"]["ratings"]["Row"] & {
   coffee_shops: { name: string | null } | null;
 };
 
-export default async function ProfilePage() {
-  const supabase = await createClient();
+type SavedCafe = Database["public"]["Tables"]["ratings"]["Row"] & {
+  coffee_shops: { name: string | null } | null;
+};
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export default function ProfilePage() {
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [profile, setProfile] = useState<{ username: string } | null>(null);
+  const [userRatings, setUserRatings] = useState<UserRating[] | null>(null);
+  const [savedCafes, setSavedCafes] = useState<SavedCafe[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!user) {
-    return redirect("/auth/login");
+  useEffect(() => {
+    const fetchData = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        redirect("/auth/login");
+      }
+      setUser(user);
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
+
+      const { data: userRatings, error: ratingsError } = (await supabase
+        .from("ratings")
+        .select(
+          `
+          drinks_quality,
+          created_at,
+          shop_id,
+          coffee_shops (
+            name
+          )
+        `
+        )
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })) as {
+        data: UserRating[] | null;
+        error: PostgrestError | null;
+      };
+
+      const { data: savedCafes, error: savedCafesError } = (await supabase
+        .from("ratings")
+        .select(
+          `
+          shop_id,
+          created_at,
+          coffee_shops (
+            name
+          )
+        `
+        )
+        .eq("user_id", user.id)
+        .is("drinks_quality", null)
+        .order("created_at", { ascending: false })) as {
+        data: SavedCafe[] | null;
+        error: PostgrestError | null;
+      };
+
+      if (profileError || ratingsError || savedCafesError) {
+        console.error(
+          "Error fetching data:",
+          profileError || ratingsError || savedCafesError
+        );
+      }
+
+      setProfile(profile);
+      setUserRatings(userRatings);
+      setSavedCafes(savedCafes);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleUnsave = (shopId: number) => {
+    if (savedCafes) {
+      setSavedCafes(savedCafes.filter((cafe) => cafe.shop_id !== shopId));
+    }
+  };
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex flex-col items-center bg-gray-50/50 pt-12 relative">
+        <div className="flex-1 w-full flex flex-col gap-10 max-w-4xl p-5">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold font-kate">
+              Loading...
+            </h1>
+          </div>
+        </div>
+      </main>
+    );
   }
 
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", user.id)
-    .single();
-
-  const { data: userRatings, error: ratingsError } = (await supabase
-    .from("ratings")
-    .select(
-      `
-      drinks_quality,
-      created_at,
-      shop_id,
-      coffee_shops (
-        name
-      )
-    `
-    )
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })) as {
-    data: UserRating[] | null;
-    error: PostgrestError | null;
-  };
-
-  const { data: savedCafes, error: savedCafesError } = (await supabase
-    .from("ratings")
-    .select(
-      `
-      shop_id,
-      created_at,
-      coffee_shops (
-        name
-      )
-    `
-    )
-    .eq("user_id", user.id)
-    .is("drinks_quality", null)
-    .order("created_at", { ascending: false })) as {
-    data: UserRating[] | null;
-    error: PostgrestError | null;
-  };
-
-  if (profileError || ratingsError || savedCafesError) {
-    console.error(
-      "Error fetching data:",
-      profileError || ratingsError || savedCafesError
-    );
+  if (!user) {
+    return null;
   }
 
   const name = profile?.username || user.email;
@@ -119,8 +169,6 @@ export default async function ProfilePage() {
               </div>
             </CardContent>
           </Card>
-
-          {/*  SAVED CAFES SECTION */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 font-kate">
@@ -156,9 +204,12 @@ export default async function ProfilePage() {
                             ).toLocaleDateString()}
                           </span>
                         </div>
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/cafe/${cafe.shop_id}`}>View</Link>
-                        </Button>
+                        <SaveButton
+                          shopId={cafe.shop_id}
+                          isInitiallySaved={true}
+                          userId={user.id}
+                          onUnsave={handleUnsave}
+                        />
                       </div>
                     );
                   })}

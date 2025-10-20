@@ -2,23 +2,27 @@
 
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 type SaveButtonProps = {
   shopId: number;
   isInitiallySaved: boolean;
   userId: string | null;
+  onUnsave?: (shopId: number) => void;
 };
 
 export function SaveButton({
   shopId,
   isInitiallySaved,
   userId,
+  onUnsave,
 }: SaveButtonProps) {
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
   const [pop, setPop] = useState(false);
+  const router = useRouter();
 
   const handleClick = async () => {
     if (!userId) {
@@ -29,35 +33,53 @@ export function SaveButton({
     if (isLoading) return;
     setIsLoading(true);
 
-    if (isSaved) {
-      const { error } = await supabase
-        .from("ratings")
-        .delete()
-        .eq("user_id", userId)
-        .eq("shop_id", shopId)
-        .is("drinks_quality", null);
+    try {
+      if (isSaved) {
+        const { error } = await supabase
+          .from("ratings")
+          .delete()
+          .eq("user_id", userId)
+          .eq("shop_id", shopId)
+          .is("drinks_quality", null);
 
-      if (error) {
-        console.error("Error unsaving cafe:", error);
-      } else {
+        if (error) throw error;
         setIsSaved(false);
-      }
-    } else {
-      const { error } = await supabase
-        .from("ratings")
-        .insert([{ user_id: userId, shop_id: shopId, drinks_quality: null }]);
-
-      if (error) {
-        console.error("Error saving cafe:", error);
+        if (onUnsave) {
+          onUnsave(shopId);
+        } else {
+          router.refresh();
+        }
       } else {
+        const { data: existing, error: fetchError } = await supabase
+          .from("ratings")
+          .select("id")
+          .eq("user_id", userId)
+          .eq("shop_id", shopId)
+          .is("drinks_quality", null)
+          .maybeSingle();
+
+        if (fetchError) throw fetchError;
+
+        if (!existing) {
+          const { error: insertError } = await supabase
+            .from("ratings")
+            .insert([
+              { user_id: userId, shop_id: shopId, drinks_quality: null },
+            ]);
+
+          if (insertError) throw insertError;
+        }
         setIsSaved(true);
+        //router.refresh();
       }
+
+      setPop(true);
+      setTimeout(() => setPop(false), 100);
+    } catch (error) {
+      console.error("Error saving cafe:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    setPop(true);
-    setTimeout(() => setPop(false), 100);
-
-    setIsLoading(false);
   };
 
   return (
