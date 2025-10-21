@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { User } from "@supabase/supabase-js";
 import { Bookmark } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,7 @@ import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
 import { SaveButton } from "@/components/save-button";
-import { User } from "@supabase/supabase-js";
+import { LogVisitButton } from "@/components/log-visit-button";
 
 type CoffeeShop = Database["public"]["Tables"]["coffee_shops"]["Row"];
 
@@ -19,12 +20,14 @@ type CafeDetailsClientProps = {
   shop: CoffeeShop;
   user: User | null;
   isInitiallySaved: boolean;
+  isInitiallyVisited: boolean;
 };
 
 export default function CafeDetailsClient({
   shop,
   user,
   isInitiallySaved,
+  isInitiallyVisited,
 }: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
   const router = useRouter();
@@ -37,33 +40,41 @@ export default function CafeDetailsClient({
     >
       <div className="flex-1 w-full flex flex-col gap-8 md:gap-12 items-center p-8 max-w-4xl mx-auto">
         <div className="flex flex-col gap-4 text-center items-center">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-8">
             <h1 className="text-5xl md:text-6xl font-bold font-kate">
               {shop.name}
             </h1>
-            {user ? (
-              <SaveButton
+            <div className="flex items-center gap-2">
+              <LogVisitButton
                 shopId={shop.id}
-                isInitiallySaved={isInitiallySaved}
-                userId={user.id}
-              />
-            ) : (
-              <Button
-                variant="ghost"
+                isInitiallyVisited={isInitiallyVisited}
                 size="icon-lg"
-                onClick={() => router.push("/auth/login")}
-              >
-                <Bookmark className="h-8 w-8" fill="none" />
-              </Button>
-            )}
+              />
+              {user ? (
+                <SaveButton
+                  shopId={shop.id}
+                  isInitiallySaved={isInitiallySaved}
+                  userId={user.id}
+                  size="icon-lg"
+                />
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="icon-lg"
+                  onClick={() => router.push("/auth/login")}
+                >
+                  <Bookmark className="h-8 w-8" fill="none" />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
         <Card className="w-full">
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-8 text-lg p-6">
             {shop.vibe && (
-              <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[180px]">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                   <Image
                     src={isAfterHours ? "/heartDark.png" : "/heart.png"}
                     alt="Vibe"
@@ -76,8 +87,8 @@ export default function CafeDetailsClient({
               </div>
             )}
             {shop.pricing && (
-              <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[180px]">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                   <Image
                     src={isAfterHours ? "/moneyDark.png" : "/money.png"}
                     alt="Pricing"
@@ -90,8 +101,8 @@ export default function CafeDetailsClient({
               </div>
             )}
             {shop.busyness && (
-              <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[180px]">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                   <Image
                     src={isAfterHours ? "/personDark.png" : "/person.png"}
                     alt="Busyness"
@@ -104,8 +115,8 @@ export default function CafeDetailsClient({
               </div>
             )}
             {shop.seating && (
-              <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[180px]">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                   <Image
                     src={isAfterHours ? "/chairDark.png" : "/chair.png"}
                     alt="Seating"
@@ -114,14 +125,14 @@ export default function CafeDetailsClient({
                   />{" "}
                   Seating
                 </span>
-                <Badge variant="outline" className="text-lg px-3 py-1">
+                <Badge className="text-lg px-3 py-1">
                   {shop.seating}
                 </Badge>
               </div>
             )}
             {shop.parking && (
-              <div className="flex items-center gap-x-8">
-                <span className="flex items-center gap-3 font-medium min-w-[180px]">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                   <Image
                     src={isAfterHours ? "/carDark.png" : "/car.png"}
                     alt="Parking"
@@ -130,14 +141,14 @@ export default function CafeDetailsClient({
                   />{" "}
                   Parking
                 </span>
-                <Badge variant="outline" className="text-lg px-3 py-1">
+                <Badge className="text-lg px-3 py-1">
                   {shop.parking}
                 </Badge>
               </div>
             )}
 
-            <div className="flex items-center gap-x-8">
-              <span className="flex items-center gap-3 font-medium min-w-[180px]">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                 <Image
                   src={isAfterHours ? "/wifiDark.png" : "/wifi.png"}
                   alt="WiFi"
@@ -147,14 +158,13 @@ export default function CafeDetailsClient({
                 WiFi
               </span>
               <Badge
-                variant={shop.has_wifi ? "default" : "secondary"}
                 className="text-lg px-3 py-1"
               >
                 {shop.has_wifi ? "Yes" : "No"}
               </Badge>
             </div>
-            <div className="flex items-center gap-x-8">
-              <span className="flex items-center gap-3 font-medium min-w-[180px]">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                 <Image
                   src={isAfterHours ? "/outletDark.png" : "/outlet.png"}
                   alt="Outlets"
@@ -164,14 +174,13 @@ export default function CafeDetailsClient({
                 Outlets
               </span>
               <Badge
-                variant={shop.has_outlets ? "default" : "secondary"}
                 className="text-lg px-3 py-1"
               >
                 {shop.has_outlets ? "Yes" : "No"}
               </Badge>
             </div>
-            <div className="flex items-center gap-x-8">
-              <span className="flex items-center gap-3 font-medium min-w-[180px]">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-3 font-medium md:min-w-[180px]">
                 <Image
                   src={isAfterHours ? "/laptopDark.png" : "/laptop.png"}
                   alt="Laptop Friendly"
@@ -181,7 +190,6 @@ export default function CafeDetailsClient({
                 Laptop Friendly
               </span>
               <Badge
-                variant={shop.is_laptop_friendly ? "default" : "secondary"}
                 className="text-lg px-3 py-1"
               >
                 {shop.is_laptop_friendly ? "Yes" : "No"}

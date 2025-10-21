@@ -11,6 +11,7 @@ type SaveButtonProps = {
   isInitiallySaved: boolean;
   userId: string | null;
   onUnsave?: (shopId: number) => void;
+  size?: "icon-sm" | "icon-lg";
 };
 
 import { useTheme } from "@/app/theme-context";
@@ -20,6 +21,7 @@ export function SaveButton({
   isInitiallySaved,
   userId,
   onUnsave,
+  size = "icon-sm",
 }: SaveButtonProps) {
   const { isAfterHours } = useTheme();
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
@@ -82,15 +84,17 @@ export function SaveButton({
     }
   };
 
+  const iconSize = size === "icon-lg" ? "h-8 w-8" : "h-5 w-5";
+
   return (
     <Button
       variant="ghost"
-      size="icon-lg"
+      size={size}
       onClick={handleClick}
       disabled={isLoading}
     >
       <Bookmark
-        className="h-8 w-8"
+        className={iconSize}
         fill={isSaved ? (isAfterHours ? "white" : "black") : "none"}
         data-testid="bookmark-icon"
       />

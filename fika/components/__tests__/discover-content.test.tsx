@@ -1,14 +1,45 @@
 import { render, screen } from "@testing-library/react";
 import { DiscoverContent } from "../discover-content";
 import { CoffeeShop } from "@/lib/types";
+import { useTheme } from "@/app/theme-context";
 
+// Mock the useTheme hook
+jest.mock("@/app/theme-context", () => ({
+  ...jest.requireActual("@/app/theme-context"),
+  useTheme: jest.fn(),
+}));
+
+// Mock the next/navigation module
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
+    refresh: jest.fn(),
   }),
   usePathname: () => "/",
   useSearchParams: () => new URLSearchParams(),
+}));
+
+// Mock the Supabase client
+jest.mock("@/lib/supabase/client", () => ({
+  createClient: jest.fn(() => ({
+    from: jest.fn(() => ({
+      delete: jest.fn().mockReturnThis(),
+      insert: jest.fn().mockReturnThis(),
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      is: jest.fn().mockReturnThis(),
+      maybeSingle: jest.fn().mockResolvedValue({ data: null, error: null }),
+    })),
+    auth: {
+      getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+    },
+  })),
+}));
+
+// Mock the server action
+jest.mock("@/app/actions", () => ({
+  toggleVisit: jest.fn(),
 }));
 
 jest.mock("@/lib/supabase/database.types", () => ({
@@ -41,6 +72,8 @@ const mockShops: CoffeeShop[] = [
     summary: "A great place to work and drink coffee.",
     vibe: "Cozy",
     wine_bar: false,
+    isInitiallySaved: false,
+    isInitiallyVisited: false,
   },
   {
     id: 2,
@@ -58,12 +91,15 @@ const mockShops: CoffeeShop[] = [
     summary: "A modern cafe with a focus on design.",
     vibe: "Minimalistic",
     wine_bar: true,
+    isInitiallySaved: false,
+    isInitiallyVisited: false,
   },
 ];
 
 describe("DiscoverContent", () => {
   it("renders a list of cafes", () => {
-    render(<DiscoverContent initialShops={mockShops} />);
+    (useTheme as jest.Mock).mockReturnValue({ isAfterHours: false });
+    render(<DiscoverContent initialShops={mockShops} user={null} />);
 
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toBeInTheDocument();

@@ -10,10 +10,14 @@ import { CoffeeShop } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import { User } from "@supabase/supabase-js";
+
 export function DiscoverContent({
   initialShops,
+  user,
 }: {
   initialShops?: CoffeeShop[];
+  user: User | null;
 }) {
   const [shops, setShops] = useState<CoffeeShop[]>(initialShops || []);
   const searchParams = useSearchParams();
@@ -21,6 +25,27 @@ export function DiscoverContent({
   useEffect(() => {
     const fetchShops = async () => {
       const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      let savedCafeIds: number[] = [];
+      let visitedCafeIds: number[] = [];
+
+      if (user) {
+        const { data: ratings } = await supabase
+          .from("ratings")
+          .select("shop_id, drinks_quality")
+          .eq("user_id", user.id);
+
+        if (ratings) {
+          savedCafeIds = ratings
+            .filter((r) => r.drinks_quality === null)
+            .map((r) => r.shop_id);
+          visitedCafeIds = ratings
+            .filter((r) => r.drinks_quality !== null)
+            .map((r) => r.shop_id);
+        }
+      }
+
       let query = supabase.from("coffee_shops").select(
         `
         *,
@@ -53,7 +78,14 @@ export function DiscoverContent({
       }
 
       const { data: shops } = await query;
-      setShops(shops || []);
+
+      const shopsWithStatus = shops?.map((shop) => ({
+        ...shop,
+        isInitiallySaved: savedCafeIds.includes(shop.id),
+        isInitiallyVisited: visitedCafeIds.includes(shop.id),
+      })) as CoffeeShop[];
+
+      setShops(shopsWithStatus || []);
     };
 
     const hasSearchParams = Array.from(searchParams.keys()).length > 0;
@@ -89,7 +121,13 @@ export function DiscoverContent({
           <section className="flex flex-col gap-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {shops.map((shop) => (
-                <CafeQuickView key={shop.id} shop={shop} />
+                <CafeQuickView
+                  key={shop.id}
+                  shop={shop}
+                  user={user}
+                  isInitiallySaved={shop.isInitiallySaved}
+                  isInitiallyVisited={shop.isInitiallyVisited}
+                />
               ))}
             </div>
           </section>

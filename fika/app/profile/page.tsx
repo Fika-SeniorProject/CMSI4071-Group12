@@ -65,6 +65,7 @@ export default function ProfilePage() {
         `
         )
         .eq("user_id", user.id)
+        .not("drinks_quality", "is", null)
         .order("created_at", { ascending: false })) as {
         data: UserRating[] | null;
         error: PostgrestError | null;
@@ -112,7 +113,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex flex-col items-center bg-gray-50/50 pt-12 relative">
+      <main className="min-h-screen flex flex-col items-center pt-12 relative">
         <div className="flex-1 w-full flex flex-col gap-10 max-w-4xl p-5">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold font-kate">
@@ -138,7 +139,7 @@ export default function ProfilePage() {
   });
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gray-50/50 pt-12 relative">
+    <main className="min-h-screen flex flex-col items-center pt-12 relative">
       <div className="flex-1 w-full flex flex-col gap-10 max-w-4xl p-5">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold font-kate">

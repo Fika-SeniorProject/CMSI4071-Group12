@@ -25,6 +25,7 @@ export default async function CafeDetailsPage({ params }: Props) {
   }
 
   let isInitiallySaved = false;
+  let isInitiallyVisited = false;
   if (user) {
     const { data: saved } = await supabase
       .from("ratings")
@@ -33,6 +34,14 @@ export default async function CafeDetailsPage({ params }: Props) {
       .eq("shop_id", shop.id)
       .is("drinks_quality", null);
     isInitiallySaved = !!saved && saved.length > 0;
+
+    const { data: visited } = await supabase
+      .from("ratings")
+      .select("shop_id")
+      .eq("user_id", user.id)
+      .eq("shop_id", shop.id)
+      .not("drinks_quality", "is", null);
+    isInitiallyVisited = !!visited && visited.length > 0;
   }
 
   return (
@@ -40,5 +49,6 @@ export default async function CafeDetailsPage({ params }: Props) {
       shop={shop}
       user={user}
       isInitiallySaved={isInitiallySaved}
+      isInitiallyVisited={isInitiallyVisited}
     />
   );}
