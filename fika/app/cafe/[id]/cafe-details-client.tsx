@@ -2,10 +2,11 @@
 
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
-//import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-//import { Bookmark } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
@@ -26,6 +27,7 @@ export default function CafeDetailsClient({
   isInitiallySaved,
 }: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
+  const router = useRouter();
 
   return (
     <main
@@ -33,30 +35,26 @@ export default function CafeDetailsClient({
         "min-h-screen flex flex-col items-center relative overflow-hidden"
       )}
     >
-      <div className="flex-1 w-full flex flex-col gap-12 items-center p-8 max-w-4xl mx-auto">
+      <div className="flex-1 w-full flex flex-col gap-8 md:gap-12 items-center p-8 max-w-4xl mx-auto">
         <div className="flex flex-col gap-4 text-center items-center">
           <div className="flex items-center gap-4">
             <h1 className="text-5xl md:text-6xl font-bold font-kate">
               {shop.name}
             </h1>
-            {/* {user ? ( */}
-            <SaveButton
-              shopId={shop.id}
-              isInitiallySaved={isInitiallySaved}
-              userId={user?.id ?? null}
-            />
-            {shop.wine_bar && (
-              <div
-                className="cursor-pointer"
-                onClick={() => setIsAfterHours(!isAfterHours)}
+            {user ? (
+              <SaveButton
+                shopId={shop.id}
+                isInitiallySaved={isInitiallySaved}
+                userId={user.id}
+              />
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                onClick={() => router.push("/auth/login")}
               >
-                <Image
-                  src={isAfterHours ? "/wineGlassDark.png" : "/wineGlass.png"}
-                  alt="Wine Glass Icon"
-                  width={40}
-                  height={40}
-                />
-              </div>
+                <Bookmark className="h-8 w-8" fill="none" />
+              </Button>
             )}
           </div>
         </div>
@@ -192,7 +190,7 @@ export default function CafeDetailsClient({
           </CardContent>
         </Card>
 
-        <div className="w-full relative h-64 md:h-80 mt-8">
+        <div className="w-full relative h-64 md:h-80">
           <Image
             src={isAfterHours ? "/wineBarExterior.png" : "/cafeExterior.png"}
             alt="Cafe exterior"
@@ -201,7 +199,11 @@ export default function CafeDetailsClient({
           />
         </div>
       </div>
-      <Footer isAfterHours={isAfterHours} />
+      <Footer
+        isAfterHours={isAfterHours}
+        setIsAfterHours={setIsAfterHours}
+        isWineBar={shop.wine_bar}
+      />
     </main>
   );
 }

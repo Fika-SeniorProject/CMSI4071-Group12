@@ -12,49 +12,49 @@ export default function DiscoverPage() {
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-10 left-10 z-[-1]"
+        className="hidden sm:block absolute top-10 left-10 z-[-1]"
       />
       <Image
         src="/swanLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-1/3 left-5 z-[-1]"
+        className="hidden sm:block absolute top-1/3 left-5 z-[-1]"
       />
       <Image
         src="/icedMatchaLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-20 right-10 z-[-1]"
+        className="hidden sm:block absolute top-20 right-10 z-[-1]"
       />
       <Image
         src="/hotMatchaLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="absolute top-2/3 right-5 z-[-1]"
+        className="hidden sm:block absolute top-2/3 right-5 z-[-1]"
       />
       <Image
         src="/creamTopLatte.png"
         alt="decoration"
         width={95}
         height={95}
-        className="absolute top-1/4 right-12 z-[-1]"
+        className="hidden sm:block absolute top-1/4 right-12 z-[-1]"
       />
       <Image
         src="/icedLatte.png"
         alt="decoration"
         width={95}
         height={95}
-        className="absolute top-1/2 left-10 z-[-1]"
+        className="hidden sm:block absolute top-1/2 left-10 z-[-1]"
       />
       <Image
         src="/cakeSlice.png"
         alt="decoration"
         width={120}
         height={120}
-        className="absolute bottom-1/4 left-10 z-[-1]"
+        className="hidden sm:block absolute bottom-1/4 left-10 z-[-1]"
       />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <Suspense fallback={<div>Loading discover content...</div>}>

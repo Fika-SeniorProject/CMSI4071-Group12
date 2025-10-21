@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -12,16 +13,18 @@ type SaveButtonProps = {
   onUnsave?: (shopId: number) => void;
 };
 
+import { useTheme } from "@/app/theme-context";
+
 export function SaveButton({
   shopId,
   isInitiallySaved,
   userId,
   onUnsave,
 }: SaveButtonProps) {
+  const { isAfterHours } = useTheme();
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
-  const [pop, setPop] = useState(false);
   const router = useRouter();
 
   const handleClick = async () => {
@@ -72,9 +75,6 @@ export function SaveButton({
         setIsSaved(true);
         //router.refresh();
       }
-
-      setPop(true);
-      setTimeout(() => setPop(false), 100);
     } catch (error) {
       console.error("Error saving cafe:", error);
     } finally {
@@ -83,29 +83,17 @@ export function SaveButton({
   };
 
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="icon-lg"
       onClick={handleClick}
       disabled={isLoading}
-      aria-label={isSaved ? "Unsave cafe" : "Save cafe"}
-      className="appearance-none bg-transparent border-none outline-none p-0 m-0 cursor-pointer"
-      style={{
-        background: "none",
-        border: "none",
-        boxShadow: "none",
-        borderRadius: 0,
-      }}
     >
       <Bookmark
-        size={32}
-        strokeWidth={2}
-        color="black"
-        fill={userId && isSaved ? "black" : "transparent"}
-        style={{
-          transform: pop ? "scale(1.3)" : "scale(1)",
-          transition: "transform 0.10s ease-in-out",
-          transformOrigin: "center",
-        }}
+        className="h-8 w-8"
+        fill={isSaved ? (isAfterHours ? "white" : "black") : "none"}
+        data-testid="bookmark-icon"
       />
-    </button>
+    </Button>
   );
 }

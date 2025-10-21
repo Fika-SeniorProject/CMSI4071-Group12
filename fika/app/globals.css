@@ -99,14 +99,15 @@ body.after-hours-theme {
 .disco-ball-container {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100%);
   animation: lowerDiscoBall 2s forwards;
   z-index: 10;
+  width: 100%;
+  pointer-events: none;
 }
 
 .disco-ball {
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+  margin: 0 auto;
 }
 
 .star {
