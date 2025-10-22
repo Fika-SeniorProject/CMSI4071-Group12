@@ -5,7 +5,9 @@ import { CoffeeShop } from "@/lib/types";
 
 export default async function DiscoverPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: shops } = await supabase.from("coffee_shops").select(
     `
@@ -29,49 +31,49 @@ export default async function DiscoverPage() {
         alt="decoration"
         width={96}
         height={96}
-        className="hidden sm:block absolute top-10 left-10 z-[-1]"
+        className="hidden sm:block fixed top-20 left-8 z-[-1]"
       />
       <Image
         src="/swanLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="hidden sm:block absolute top-1/3 left-5 z-[-1]"
+        className="hidden sm:block fixed top-1/3 left-20 z-[-1]"
       />
       <Image
         src="/icedMatchaLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="hidden sm:block absolute top-20 right-10 z-[-1]"
+        className="hidden sm:block fixed top-24 right-10 z-[-1]"
       />
       <Image
         src="/hotMatchaLatte.png"
         alt="decoration"
         width={96}
         height={96}
-        className="hidden sm:block absolute top-2/3 right-5 z-[-1]"
+        className="hidden sm:block fixed top-1/2 right-16 z-[-1]"
       />
       <Image
         src="/creamTopLatte.png"
         alt="decoration"
         width={95}
         height={95}
-        className="hidden sm:block absolute top-1/4 right-12 z-[-1]"
+        className="hidden sm:block fixed bottom-8 left-16 z-[-1]"
       />
       <Image
         src="/icedLatte.png"
         alt="decoration"
         width={95}
         height={95}
-        className="hidden sm:block absolute top-1/2 left-10 z-[-1]"
+        className="hidden sm:block fixed bottom-12 right-8 z-[-1]"
       />
       <Image
         src="/cakeSlice.png"
         alt="decoration"
         width={120}
         height={120}
-        className="hidden sm:block absolute bottom-1/4 left-10 z-[-1]"
+        className="hidden sm:block fixed bottom-1/3 left-5 z-[-1]"
       />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <DiscoverContent user={user} initialShops={initialShops} />
