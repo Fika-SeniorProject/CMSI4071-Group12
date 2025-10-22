@@ -22,19 +22,26 @@ jest.mock("next/navigation", () => ({
 
 // Mock the Supabase client
 jest.mock("@/lib/supabase/client", () => ({
-  createClient: jest.fn(() => ({
-    from: jest.fn().mockReturnValue({
-      select: jest.fn().mockResolvedValue({ data: mockShops, error: null }),
+  createClient: jest.fn(() => {
+    const mockQueryBuilder = {
       eq: jest.fn().mockReturnThis(),
       is: jest.fn().mockReturnThis(),
+      range: jest.fn().mockReturnThis(),
       delete: jest.fn().mockReturnThis(),
       insert: jest.fn().mockReturnThis(),
       maybeSingle: jest.fn().mockResolvedValue({ data: null, error: null }),
-    }),
-    auth: {
-      getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
-    },
-  })),
+      then: jest.fn((resolve) => resolve({ data: mockShops, error: null })),
+    };
+
+    return {
+      from: jest.fn().mockReturnValue({
+        select: jest.fn().mockReturnValue(mockQueryBuilder),
+      }),
+      auth: {
+        getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+      },
+    };
+  }),
 }));
 
 // Mock the server action
@@ -74,6 +81,7 @@ const mockShops: CoffeeShop[] = [
     wine_bar: false,
     isInitiallySaved: false,
     isInitiallyVisited: false,
+    ratings: [], // Added missing property
   },
   {
     id: 2,
@@ -93,6 +101,7 @@ const mockShops: CoffeeShop[] = [
     wine_bar: true,
     isInitiallySaved: false,
     isInitiallyVisited: false,
+    ratings: [], // Added missing property
   },
 ];
 

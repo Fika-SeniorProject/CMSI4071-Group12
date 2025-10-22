@@ -16,7 +16,7 @@ export default async function DiscoverPage() {
       photo_url
     )
   `
-  );
+  ).range(0, 19);
 
   const initialShops = shops?.map((shop) => ({
     ...shop,
