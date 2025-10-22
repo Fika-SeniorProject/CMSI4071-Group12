@@ -9,6 +9,6 @@ describe("Skeleton", () => {
 
     const skeleton = screen.getByTestId("skeleton");
 
-    expect(skeleton).toHaveClass("animate-pulse rounded-md bg-muted");
+    expect(skeleton).toHaveClass("animate-pulse rounded-md bg-skeleton-brown");
   });
 });

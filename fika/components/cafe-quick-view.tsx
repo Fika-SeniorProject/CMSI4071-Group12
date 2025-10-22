@@ -23,7 +23,9 @@ export function CafeQuickView({
   return (
     <Card className="w-full flex flex-col relative">
       <div className="flex justify-between items-center p-4 pl-6 pr-[1.1rem]">
-        <h2 className="font-kate font-semibold leading-none tracking-tight text-lg">{shop.name}</h2>
+        <h2 className="font-kate font-semibold leading-none tracking-tight text-lg">
+          {shop.name}
+        </h2>
         <div className="flex items-center gap-2">
           <LogVisitButton
             shopId={shop.id}
@@ -42,8 +44,8 @@ export function CafeQuickView({
           <Image
             src={shop.shop_photos[0].photo_url}
             alt={shop.name || "No name found"}
-            width={500}
-            height={500}
+            width={300}
+            height={300}
             priority
             className="w-full aspect-square object-cover rounded-md"
           />
@@ -52,8 +54,8 @@ export function CafeQuickView({
             <Image
               src="/hotLatte.png"
               alt="Hot Latte"
-              width={200}
-              height={200}
+              width={300}
+              height={300}
               className="rounded-md object-cover"
             />
           </div>

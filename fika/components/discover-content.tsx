@@ -2,6 +2,7 @@
 
 import { CafeQuickView } from "@/components/cafe-quick-view";
 import { DiscoverFilters } from "@/components/discover-filters";
+import { CafeCardSkeleton } from "@/components/cafe-card-skeleton";
 import { Footer } from "@/components/footer";
 
 import { Constants } from "@/lib/supabase/database.types";
@@ -20,12 +21,16 @@ export function DiscoverContent({
   user: User | null;
 }) {
   const [shops, setShops] = useState<CoffeeShop[]>(initialShops || []);
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchShops = async () => {
+      setLoading(true);
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
       let savedCafeIds: number[] = [];
       let visitedCafeIds: number[] = [];
@@ -86,13 +91,11 @@ export function DiscoverContent({
       })) as CoffeeShop[];
 
       setShops(shopsWithStatus || []);
+      setLoading(false);
     };
 
-    const hasSearchParams = Array.from(searchParams.keys()).length > 0;
-    if (initialShops === undefined || hasSearchParams) {
-      fetchShops();
-    }
-  }, [searchParams, initialShops]);
+    fetchShops();
+  }, [searchParams]);
 
   return (
     <>
@@ -117,7 +120,19 @@ export function DiscoverContent({
           }
           vibes={Constants.public.Enums.Vibe as unknown as string[]}
         />
-        {shops.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+            <CafeCardSkeleton size="small" />
+          </div>
+        ) : shops.length > 0 ? (
           <section className="flex flex-col gap-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {shops.map((shop) => (

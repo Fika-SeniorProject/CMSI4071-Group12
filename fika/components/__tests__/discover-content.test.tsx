@@ -23,14 +23,14 @@ jest.mock("next/navigation", () => ({
 // Mock the Supabase client
 jest.mock("@/lib/supabase/client", () => ({
   createClient: jest.fn(() => ({
-    from: jest.fn(() => ({
-      delete: jest.fn().mockReturnThis(),
-      insert: jest.fn().mockReturnThis(),
-      select: jest.fn().mockReturnThis(),
+    from: jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue({ data: mockShops, error: null }),
       eq: jest.fn().mockReturnThis(),
       is: jest.fn().mockReturnThis(),
+      delete: jest.fn().mockReturnThis(),
+      insert: jest.fn().mockReturnThis(),
       maybeSingle: jest.fn().mockResolvedValue({ data: null, error: null }),
-    })),
+    }),
     auth: {
       getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
     },
@@ -97,14 +97,14 @@ const mockShops: CoffeeShop[] = [
 ];
 
 describe("DiscoverContent", () => {
-  it("renders a list of cafes", () => {
+  it("renders a list of cafes", async () => {
     (useTheme as jest.Mock).mockReturnValue({ isAfterHours: false });
-    render(<DiscoverContent initialShops={mockShops} user={null} />);
+    render(<DiscoverContent initialShops={[]} user={null} />);
 
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toBeInTheDocument();
 
-    expect(screen.getByText("Fika Cafe")).toBeInTheDocument();
-    expect(screen.getByText("Kaffe Landskap")).toBeInTheDocument();
+    expect(await screen.findByText("Fika Cafe")).toBeInTheDocument();
+    expect(await screen.findByText("Kaffe Landskap")).toBeInTheDocument();
   });
 });
