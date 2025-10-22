@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { User } from "@supabase/supabase-js";
 import { Bookmark } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "../../theme-context";
 import clsx from "clsx";
 import { Database } from "@/lib/supabase/database.types";
@@ -31,6 +31,7 @@ export default function CafeDetailsClient({
 }: CafeDetailsClientProps) {
   const { isAfterHours, setIsAfterHours } = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <main
@@ -49,6 +50,7 @@ export default function CafeDetailsClient({
                 shopId={shop.id}
                 isInitiallyVisited={isInitiallyVisited}
                 size="icon-lg"
+                user={user}
               />
               {user ? (
                 <SaveButton
@@ -61,7 +63,7 @@ export default function CafeDetailsClient({
                 <Button
                   variant="ghost"
                   size="icon-lg"
-                  onClick={() => router.push("/auth/login")}
+                  onClick={() => router.push(`/auth/login?redirect=${pathname}`)}
                 >
                   <Bookmark className="h-8 w-8" fill="none" />
                 </Button>

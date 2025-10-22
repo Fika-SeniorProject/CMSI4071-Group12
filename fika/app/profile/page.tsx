@@ -8,7 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -33,17 +33,12 @@ export default function ProfilePage() {
   const [userRatings, setUserRatings] = useState<UserRating[] | null>(null);
   const [savedCafes, setSavedCafes] = useState<SavedCafe[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    const supabase = createClient();
 
-      if (!user) {
-        redirect("/auth/login");
-      }
+    const fetchData = async (user: SupabaseUser) => {
       setUser(user);
 
       const { data: profile, error: profileError } = await supabase
@@ -102,8 +97,20 @@ export default function ProfilePage() {
       setLoading(false);
     };
 
-    fetchData();
-  }, []);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_OUT" || !session?.user) {
+          router.push("/auth/login");
+        } else {
+          fetchData(session.user);
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [router]);
 
   const handleUnsave = (shopId: number) => {
     if (savedCafes) {

@@ -28,6 +28,7 @@ export function CafeQuickView({
           <LogVisitButton
             shopId={shop.id}
             isInitiallyVisited={isInitiallyVisited}
+            user={user}
           />
           <SaveButton
             shopId={shop.id}

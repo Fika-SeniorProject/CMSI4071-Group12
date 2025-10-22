@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { User as UserIcon } from "lucide-react";
 import { User } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
@@ -13,6 +13,7 @@ export function AuthButton() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const getUser = async () => {
@@ -63,7 +64,7 @@ export function AuthButton() {
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
-        <Link href="/auth/login">Sign in</Link>
+        <Link href={`/auth/login?redirect=${pathname}`}>Sign in</Link>
       </Button>
     </div>
   );

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 type SaveButtonProps = {
@@ -28,10 +28,15 @@ export function SaveButton({
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsSaved(isInitiallySaved);
+  }, [isInitiallySaved]);
 
   const handleClick = async () => {
     if (!userId) {
-      window.location.href = "/auth/login";
+      router.push(`/auth/login?redirect=${pathname}`);
       return;
     }
 

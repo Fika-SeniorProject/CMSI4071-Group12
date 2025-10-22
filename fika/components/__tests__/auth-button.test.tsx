@@ -7,6 +7,7 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({
     refresh: jest.fn(),
   }),
+  usePathname: () => "/",
 }));
 
 const mockSupabase = {

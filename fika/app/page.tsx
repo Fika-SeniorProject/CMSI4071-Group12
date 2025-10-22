@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer";
 
 import { createClient } from "@/lib/supabase/server";
 import { CoffeeShop } from "@/lib/types";
+import Image from "next/image";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -50,6 +51,48 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center pt-12 relative">
+      <Image
+        src="/cardamomBun.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="hidden sm:block absolute top-8 left-12 z-[-1]"
+      />
+      <Image
+        src="/hotMatchaLatte.png"
+        alt="decoration"
+        width={120}
+        height={120}
+        className="hidden sm:block absolute top-1/3 left-8 z-[-1]"
+      />
+      <Image
+        src="/swanLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="hidden sm:block absolute top-20 right-10 z-[-1]"
+      />
+      <Image
+        src="/icedMatchaLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="hidden sm:block absolute bottom-20 right-5 z-[-1]"
+      />
+      <Image
+        src="/icedLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="hidden sm:block absolute bottom-60 left-20 z-[-1]"
+      />
+      <Image
+        src="/hotLatte.png"
+        alt="decoration"
+        width={96}
+        height={96}
+        className="hidden sm:block absolute top-1/2 right-14 z-[-1]"
+      />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
         <div className="text-center px-4">
           <h1 className="font-bold tracking-tight text-gray-900 text-7xl font-kate">
