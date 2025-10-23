@@ -31,6 +31,9 @@ export function DiscoverContent({
 
   const fetchShops = useCallback(async (currentPage: number, newSearch: boolean) => {
     setLoading(true);
+    if (newSearch) {
+      setShops([]); // Clear shops immediately for new search to show skeleton
+    }
     const supabase = createClient();
     const { data: { user: currentUser } } = await supabase.auth.getUser();
 
@@ -49,7 +52,13 @@ export function DiscoverContent({
       }
     }
 
-    let query = supabase.from("coffee_shops").select();
+    let query = supabase.from("coffee_shops").select(
+      `
+      *,
+      shop_photos (
+        photo_url
+      )
+    `);
 
     // Apply filters
     if (searchParams.get("city")) query = query.eq("city", searchParams.get("city") as string);

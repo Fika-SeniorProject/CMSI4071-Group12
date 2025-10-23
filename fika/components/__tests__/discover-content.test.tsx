@@ -20,28 +20,45 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
+const mockSearchParams = new URLSearchParams();
+
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    refresh: jest.fn(),
+  }),
+  usePathname: () => "/",
+  useSearchParams: () => mockSearchParams,
+}));
+
 // Mock the Supabase client
 jest.mock("@/lib/supabase/client", () => ({
-  createClient: jest.fn(() => {
-    const mockQueryBuilder = {
-      eq: jest.fn().mockReturnThis(),
-      is: jest.fn().mockReturnThis(),
-      range: jest.fn().mockReturnThis(),
-      delete: jest.fn().mockReturnThis(),
-      insert: jest.fn().mockReturnThis(),
-      maybeSingle: jest.fn().mockResolvedValue({ data: null, error: null }),
-      then: jest.fn((resolve) => resolve({ data: mockShops, error: null })),
-    };
-
-    return {
-      from: jest.fn().mockReturnValue({
-        select: jest.fn().mockReturnValue(mockQueryBuilder),
-      }),
-      auth: {
-        getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
-      },
-    };
-  }),
+  createClient: jest.fn(() => ({
+    from: jest.fn((tableName) => {
+      if (tableName === "coffee_shops") {
+        return {
+          select: jest.fn(() => ({
+            eq: jest.fn().mockReturnThis(),
+            is: jest.fn().mockReturnThis(),
+            range: jest.fn().mockReturnThis(),
+            then: jest.fn((resolve) => resolve({ data: mockShops, error: null })),
+          })),
+        };
+      } else if (tableName === "ratings") {
+        return {
+          select: jest.fn(() => ({
+            eq: jest.fn().mockReturnThis(),
+            then: jest.fn((resolve) => resolve({ data: [], error: null })),
+          })),
+        };
+      }
+      return {};
+    }),
+    auth: {
+      getUser: jest.fn().mockResolvedValue({ data: { user: null } }),
+    },
+  })),
 }));
 
 // Mock the server action
@@ -108,7 +125,7 @@ const mockShops: CoffeeShop[] = [
 describe("DiscoverContent", () => {
   it("renders a list of cafes", async () => {
     (useTheme as jest.Mock).mockReturnValue({ isAfterHours: false });
-    render(<DiscoverContent initialShops={[]} user={null} />);
+    render(<DiscoverContent initialShops={mockShops} user={null} />);
 
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toBeInTheDocument();
