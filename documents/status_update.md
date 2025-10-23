@@ -35,9 +35,14 @@
 **Period Covered:** 8/25/2025 - 10/17/2025
 
 **Accomplishments since last report:**
-
+- Profile page created 
+- Saved button added
+- Add saved to profile
+- Profile button added to all pages 
+- Implemented find cafe button which redirects to main page 
+- Displays users name 
 - **Scheduled tasks to be done by next report:**
-
+- bug fixes 
 - **Noteworthy risks, concerns, or problems:**
 
 - ***
