@@ -8,6 +8,7 @@ import { ThemeProvider as CustomThemeProvider } from "./theme-context";
 import DiscoBallAndStars from "./disco-ball-and-stars";
 import BodyWrapper from "./body-wrapper";
 import "./globals.css";
+import { createClient } from "@/lib/supabase/server"; // Import createClient
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -44,11 +45,14 @@ const kate = localFont({
   display: "swap",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient(); // Create Supabase client
+  const { data: { user } } = await supabase.auth.getUser(); // Get user
+
   return (
     <html lang="en" suppressHydrationWarning>
       <CustomThemeProvider>
@@ -60,7 +64,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <NavBar authButton={<AuthButton />} />
+            <NavBar authButton={<AuthButton key={user?.id || 'logged-out'} />} />
             {children}
           </NextThemesProvider>
         </BodyWrapper>

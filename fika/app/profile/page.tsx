@@ -1,5 +1,8 @@
-"use client";
-
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { Footer } from "@/components/footer";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,134 +10,30 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import { Footer } from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Coffee, User, Bookmark } from "lucide-react";
-import { PostgrestError } from "@supabase/supabase-js";
-import { Database } from "@/lib/supabase/database.types";
-import { useState, useEffect } from "react";
-import { User as SupabaseUser } from "@supabase/supabase-js";
+import { User, Bookmark, History } from "lucide-react"; // Added History icon
+import { getSavedCafes, getVisitedCafes } from "@/app/actions"; // Import server actions
+import { UserSavedCafe, UserVisit } from "@/lib/types"; // Import new types
 import { SaveButton } from "@/components/save-button";
 
-type UserRating = Database["public"]["Tables"]["ratings"]["Row"] & {
-  coffee_shops: { name: string | null } | null;
-};
+export default async function ProfilePage() {
+  const supabase = await createClient();
 
-type SavedCafe = Database["public"]["Tables"]["ratings"]["Row"] & {
-  coffee_shops: { name: string | null } | null;
-};
-
-export default function ProfilePage() {
-  const [user, setUser] = useState<SupabaseUser | null>(null);
-  const [profile, setProfile] = useState<{ username: string } | null>(null);
-  const [userRatings, setUserRatings] = useState<UserRating[] | null>(null);
-  const [savedCafes, setSavedCafes] = useState<SavedCafe[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    const supabase = createClient();
-
-    const fetchData = async (user: SupabaseUser) => {
-      setUser(user);
-
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("username")
-        .eq("id", user.id)
-        .single();
-
-      const { data: userRatings, error: ratingsError } = (await supabase
-        .from("ratings")
-        .select(
-          `
-          drinks_quality,
-          created_at,
-          shop_id,
-          coffee_shops (
-            name
-          )
-        `
-        )
-        .eq("user_id", user.id)
-        .not("drinks_quality", "is", null)
-        .order("created_at", { ascending: false })) as {
-        data: UserRating[] | null;
-        error: PostgrestError | null;
-      };
-
-      const { data: savedCafes, error: savedCafesError } = (await supabase
-        .from("ratings")
-        .select(
-          `
-          shop_id,
-          created_at,
-          coffee_shops (
-            name
-          )
-        `
-        )
-        .eq("user_id", user.id)
-        .is("drinks_quality", null)
-        .order("created_at", { ascending: false })) as {
-        data: SavedCafe[] | null;
-        error: PostgrestError | null;
-      };
-
-      if (profileError || ratingsError || savedCafesError) {
-        console.error(
-          "Error fetching data:",
-          profileError || ratingsError || savedCafesError
-        );
-      }
-
-      setProfile(profile);
-      setUserRatings(userRatings);
-      setSavedCafes(savedCafes);
-      setLoading(false);
-    };
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_OUT" || !session?.user) {
-          router.push("/auth/login");
-        } else {
-          fetchData(session.user);
-        }
-      }
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [router]);
-
-  const handleUnsave = (shopId: number) => {
-    if (savedCafes) {
-      setSavedCafes(savedCafes.filter((cafe) => cafe.shop_id !== shopId));
-    }
-  };
-
-  if (loading) {
-    return (
-      <main className="min-h-screen flex flex-col items-center pt-12 relative">
-        <div className="flex-1 w-full flex flex-col gap-10 max-w-4xl p-5">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold font-kate">
-              Loading...
-            </h1>
-          </div>
-        </div>
-      </main>
-    );
-  }
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    redirect("/auth/login");
   }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", user.id)
+    .single();
+
+  const savedCafes = await getSavedCafes();
+  const visitedCafes = await getVisitedCafes();
 
   const name = profile?.username || user.email;
 
@@ -177,6 +76,7 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 font-kate">
@@ -190,17 +90,18 @@ export default function ProfilePage() {
             <CardContent>
               {savedCafes && savedCafes.length > 0 ? (
                 <div className="space-y-4">
-                  {savedCafes.map((cafe) => {
-                    const cafeName = cafe.coffee_shops?.name || "Unknown Cafe";
+                  {savedCafes.map((savedCafe: UserSavedCafe) => {
+                    const cafeName =
+                      savedCafe.coffee_shops?.name || "Unknown Cafe";
 
                     return (
                       <div
-                        key={cafe.shop_id}
+                        key={savedCafe.coffee_shop_id}
                         className="flex justify-between items-center border-b pb-2 last:border-b-0"
                       >
                         <div className="flex flex-col">
                           <Link
-                            href={`/cafe/${cafe.shop_id}`}
+                            href={`/cafe/${savedCafe.coffee_shop_id}`}
                             className="font-semibold text-primary hover:underline"
                           >
                             {cafeName}
@@ -208,15 +109,13 @@ export default function ProfilePage() {
                           <span className="text-xs text-muted-foreground">
                             Saved on{" "}
                             {new Date(
-                              cafe.created_at || ""
+                              savedCafe.saved_at || ""
                             ).toLocaleDateString()}
                           </span>
                         </div>
                         <SaveButton
-                          shopId={cafe.shop_id}
+                          shopId={savedCafe.coffee_shop_id}
                           isInitiallySaved={true}
-                          userId={user.id}
-                          onUnsave={handleUnsave}
                         />
                       </div>
                     );
@@ -237,40 +136,39 @@ export default function ProfilePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="font-kate">Your Logged Cafes</CardTitle>
+              <CardTitle className="flex items-center gap-2 font-kate">
+                <History className="h-5 w-5" /> {/* Changed icon to History */}
+                Your Visited Cafes
+              </CardTitle>
               <CardDescription>
-                Cafes you have reviewed or rated.
+                A history of cafes you&apos;ve visited.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {userRatings && userRatings.length > 0 ? (
+              {visitedCafes && visitedCafes.length > 0 ? (
                 <div className="space-y-4">
-                  {userRatings.map((rating) => {
+                  {visitedCafes.map((visitedCafe: UserVisit) => {
                     const cafeName =
-                      rating.coffee_shops?.name || "Unknown Cafe";
+                      visitedCafe.coffee_shops?.name || "Unknown Cafe";
 
                     return (
                       <div
-                        key={rating.shop_id}
+                        key={visitedCafe.id} // Use the visit ID as key
                         className="flex justify-between items-center border-b pb-2 last:border-b-0"
                       >
                         <div className="flex flex-col">
                           <Link
-                            href={`/cafe/${rating.shop_id}`}
+                            href={`/cafe/${visitedCafe.coffee_shop_id}`}
                             className="font-semibold text-primary hover:underline"
                           >
                             {cafeName}
                           </Link>
                           <span className="text-xs text-muted-foreground">
-                            Reviewed on{" "}
+                            Visited on{" "}
                             {new Date(
-                              rating.created_at || ""
+                              visitedCafe.visited_at || ""
                             ).toLocaleDateString()}
                           </span>
-                        </div>
-                        <div className="flex items-center gap-1 text-sm font-medium">
-                          <Coffee className="h-4 w-4" />
-                          <span>{rating.drinks_quality}/5</span>
                         </div>
                       </div>
                     );
@@ -279,10 +177,10 @@ export default function ProfilePage() {
               ) : (
                 <div className="text-center py-6">
                   <p className="text-muted-foreground mb-4">
-                    You haven&apos;t logged any cafes yet!
+                    You haven&apos;t logged any visits yet!
                   </p>
                   <Button asChild>
-                    <Link href="/discover">Find Cafes</Link>
+                    <Link href="/discover">Log a Visit</Link>
                   </Button>
                 </div>
               )}

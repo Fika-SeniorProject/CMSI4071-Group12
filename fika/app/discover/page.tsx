@@ -1,28 +1,79 @@
 import { DiscoverContent } from "@/components/discover-content";
 import { createClient } from "@/lib/supabase/server";
-import Image from "next/image";
 import { CoffeeShop } from "@/lib/types";
+import Image from "next/image";
 
-export default async function DiscoverPage() {
+const PAGE_SIZE = 20;
+
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+export default async function DiscoverPage({ searchParams: searchParamsPromise }: { searchParams: Promise<SearchParams> }) {
+  const searchParams = await searchParamsPromise;
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: shops } = await supabase.from("coffee_shops").select(
+  let savedCafeIds: Set<number> = new Set();
+  let visitedCafeIds: Set<number> = new Set();
+
+  if (user) {
+    const { data: savedCafes } = await supabase
+      .from("user_saved_cafes")
+      .select("coffee_shop_id")
+      .eq("profile_id", user.id);
+    if (savedCafes) {
+      savedCafeIds = new Set(savedCafes.map((cafe) => cafe.coffee_shop_id));
+    }
+
+    const { data: visitedCafes } = await supabase
+      .from("user_visits")
+      .select("coffee_shop_id")
+      .eq("profile_id", user.id);
+    if (visitedCafes) {
+      visitedCafeIds = new Set(
+        visitedCafes.map((cafe) => cafe.coffee_shop_id)
+      );
+    }
+  }
+
+  let query = supabase.from("coffee_shops").select(
     `
     *,
     shop_photos (
       photo_url
     )
   `
-  ).range(0, 19);
+  );
 
-  const initialShops = shops?.map((shop) => ({
-    ...shop,
-    isInitiallySaved: false,
-    isInitiallyVisited: false,
-  })) as CoffeeShop[];
+  if (searchParams.city)
+    query = query.eq("city", searchParams.city as string);
+  if (searchParams.parking)
+    query = query.eq("parking", searchParams.parking as string);
+  if (searchParams.seating)
+    query = query.eq("seating", searchParams.seating as string);
+  if (searchParams.vibe)
+    query = query.eq("vibe", searchParams.vibe as string);
+  if (searchParams.has_wifi !== undefined)
+    query = query.eq("has_wifi", searchParams.has_wifi === "Yes");
+  if (searchParams.has_outlets !== undefined)
+    query = query.eq("has_outlets", searchParams.has_outlets === "Yes");
+
+  const from = 0;
+  const to = from + PAGE_SIZE - 1;
+  query = query.range(from, to);
+
+  const { data: initialShopsData } = await query;
+
+  const initialShops: CoffeeShop[] =
+    initialShopsData?.map((shop) => {
+      return {
+        ...shop,
+        isInitiallySaved: savedCafeIds.has(shop.id),
+        isInitiallyVisited: visitedCafeIds.has(shop.id),
+        shop_photos: shop.shop_photos || [],
+      };
+    }) || [];
 
   return (
     <main className="min-h-screen flex flex-col items-center pt-12 relative">
@@ -76,7 +127,7 @@ export default async function DiscoverPage() {
         className="hidden sm:block fixed bottom-1/3 left-5 z-[-1]"
       />
       <div className="flex-1 w-full flex flex-col gap-12 items-center">
-        <DiscoverContent user={user} initialShops={initialShops} />
+        <DiscoverContent initialShops={initialShops} user={user} />
       </div>
     </main>
   );

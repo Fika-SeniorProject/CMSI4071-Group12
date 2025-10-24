@@ -16,7 +16,6 @@ type CafeQuickViewProps = {
 
 export function CafeQuickView({
   shop,
-  user,
   isInitiallySaved,
   isInitiallyVisited,
 }: CafeQuickViewProps) {
@@ -30,13 +29,8 @@ export function CafeQuickView({
           <LogVisitButton
             shopId={shop.id}
             isInitiallyVisited={isInitiallyVisited}
-            user={user}
           />
-          <SaveButton
-            shopId={shop.id}
-            isInitiallySaved={isInitiallySaved}
-            userId={user?.id ?? null}
-          />
+          <SaveButton shopId={shop.id} isInitiallySaved={isInitiallySaved} />
         </div>
       </div>
       <CardContent className="flex-grow flex flex-col justify-between gap-4">

@@ -4,29 +4,26 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Bookmark } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { saveCafe, unsaveCafe } from "@/app/actions";
+
+import { useTheme } from "@/app/theme-context";
 
 type SaveButtonProps = {
   shopId: number;
   isInitiallySaved: boolean;
-  userId: string | null;
   onUnsave?: (shopId: number) => void;
   size?: "icon-sm" | "icon-lg";
 };
 
-import { useTheme } from "@/app/theme-context";
-
 export function SaveButton({
   shopId,
   isInitiallySaved,
-  userId,
   onUnsave,
   size = "icon-sm",
 }: SaveButtonProps) {
   const { isAfterHours } = useTheme();
-  const [isSaved, setIsSaved] = useState(isInitiallySaved);
+  const [isSaved, setIsSaved] = useState(isInitiallySaved); // Initialize with prop
   const [isLoading, setIsLoading] = useState(false);
-  const supabase = createClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -35,55 +32,28 @@ export function SaveButton({
   }, [isInitiallySaved]);
 
   const handleClick = async () => {
-    if (!userId) {
-      router.push(`/auth/login?redirect=${pathname}`);
-      return;
-    }
-
     if (isLoading) return;
     setIsLoading(true);
 
     try {
+      let result: { success: boolean; message?: string };
       if (isSaved) {
-        const { error } = await supabase
-          .from("ratings")
-          .delete()
-          .eq("user_id", userId)
-          .eq("shop_id", shopId)
-          .is("drinks_quality", null);
+        result = await unsaveCafe(shopId);
+      } else {
+        result = await saveCafe(shopId);
+      }
 
-        if (error) throw error;
-        setIsSaved(false);
-        if (onUnsave) {
-          onUnsave(shopId);
-        } else {
-          router.refresh();
+      if (!result.success) {
+        if (result.message === "User not found") {
+          router.push(`/auth/login?redirect=${pathname}`);
         }
       } else {
-        const { data: existing, error: fetchError } = await supabase
-          .from("ratings")
-          .select("id")
-          .eq("user_id", userId)
-          .eq("shop_id", shopId)
-          .is("drinks_quality", null)
-          .maybeSingle();
-
-        if (fetchError) throw fetchError;
-
-        if (!existing) {
-          const { error: insertError } = await supabase
-            .from("ratings")
-            .insert([
-              { user_id: userId, shop_id: shopId, drinks_quality: null },
-            ]);
-
-          if (insertError) throw insertError;
+        setIsSaved(!isSaved); // Toggle state only on success
+        if (isSaved && onUnsave) {
+          // If it was saved and now unsaved
+          onUnsave(shopId);
         }
-        setIsSaved(true);
-        //router.refresh();
       }
-    } catch (error) {
-      console.error("Error saving cafe:", error);
     } finally {
       setIsLoading(false);
     }

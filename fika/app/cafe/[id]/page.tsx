@@ -26,22 +26,25 @@ export default async function CafeDetailsPage({ params }: Props) {
 
   let isInitiallySaved = false;
   let isInitiallyVisited = false;
-  if (user) {
-    const { data: saved } = await supabase
-      .from("ratings")
-      .select("shop_id")
-      .eq("user_id", user.id)
-      .eq("shop_id", shop.id)
-      .is("drinks_quality", null);
-    isInitiallySaved = !!saved && saved.length > 0;
 
-    const { data: visited } = await supabase
-      .from("ratings")
-      .select("shop_id")
-      .eq("user_id", user.id)
-      .eq("shop_id", shop.id)
-      .not("drinks_quality", "is", null);
-    isInitiallyVisited = !!visited && visited.length > 0;
+  if (user) {
+    // Check if cafe is saved by the user
+    const { data: savedData } = await supabase
+      .from("user_saved_cafes")
+      .select("id")
+      .eq("profile_id", user.id)
+      .eq("coffee_shop_id", shop.id)
+      .single();
+    isInitiallySaved = !!savedData;
+
+    // Check if cafe has been visited by the user
+    const { data: visitedData } = await supabase
+      .from("user_visits")
+      .select("id")
+      .eq("profile_id", user.id)
+      .eq("coffee_shop_id", shop.id)
+      .limit(1); // We only need to know if at least one visit exists
+    isInitiallyVisited = !!visitedData && visitedData.length > 0;
   }
 
   return (
@@ -51,4 +54,5 @@ export default async function CafeDetailsPage({ params }: Props) {
       isInitiallySaved={isInitiallySaved}
       isInitiallyVisited={isInitiallyVisited}
     />
-  );}
+  );
+}

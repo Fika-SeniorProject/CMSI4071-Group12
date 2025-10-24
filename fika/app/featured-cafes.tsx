@@ -4,7 +4,9 @@ import { CoffeeShop } from "@/lib/types";
 
 export async function FeaturedCafes() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: featuredShopsData } = await supabase
     .from("coffee_shops")
@@ -13,25 +15,40 @@ export async function FeaturedCafes() {
       *,
       shop_photos (
         photo_url
-      ),
-      ratings (
-        user_id,
-        drinks_quality
       )
     `
     )
     .eq("is_featured", true);
 
+  let savedCafeIds: Set<number> = new Set();
+  let visitedCafeIds: Set<number> = new Set();
+
+  if (user) {
+    // Fetch all saved cafes for the user
+    const { data: savedCafes } = await supabase
+      .from("user_saved_cafes")
+      .select("coffee_shop_id")
+      .eq("profile_id", user.id);
+    if (savedCafes) {
+      savedCafeIds = new Set(savedCafes.map((cafe) => cafe.coffee_shop_id));
+    }
+
+    // Fetch all visited cafes for the user
+    const { data: visitedCafes } = await supabase
+      .from("user_visits")
+      .select("coffee_shop_id")
+      .eq("profile_id", user.id);
+    if (visitedCafes) {
+      visitedCafeIds = new Set(visitedCafes.map((cafe) => cafe.coffee_shop_id));
+    }
+  }
+
   const featuredShops: CoffeeShop[] =
     featuredShopsData?.map((shop) => {
-      const userRating = shop.ratings.find(
-        (rating: { user_id: string; drinks_quality: number | null }) =>
-          rating.user_id === user?.id
-      );
       return {
         ...shop,
-        isInitiallySaved: userRating?.drinks_quality === null,
-        isInitiallyVisited: userRating?.drinks_quality !== null,
+        isInitiallySaved: savedCafeIds.has(shop.id),
+        isInitiallyVisited: visitedCafeIds.has(shop.id),
         shop_photos: shop.shop_photos || [],
       };
     }) || [];

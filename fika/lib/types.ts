@@ -6,3 +6,11 @@ export type CoffeeShop = Database["public"]["Tables"]["coffee_shops"]["Row"] & {
   isInitiallyVisited: boolean;
   ratings: { user_id: string; drinks_quality: number | null }[];
 };
+
+// New types for user_visits and user_saved_cafes
+export type UserVisit = Database["public"]["Tables"]["user_visits"]["Row"] & {
+  coffee_shops: CoffeeShop | null;
+};
+export type UserSavedCafe = Database["public"]["Tables"]["user_saved_cafes"]["Row"] & {
+  coffee_shops: CoffeeShop | null;
+};

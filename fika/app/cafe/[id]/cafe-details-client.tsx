@@ -48,22 +48,22 @@ export default function CafeDetailsClient({
             <div className="flex items-center gap-2">
               <LogVisitButton
                 shopId={shop.id}
-                isInitiallyVisited={isInitiallyVisited}
+                isInitiallyVisited={isInitiallyVisited} // Passed prop
                 size="icon-lg"
-                user={user}
               />
               {user ? (
                 <SaveButton
                   shopId={shop.id}
                   isInitiallySaved={isInitiallySaved}
-                  userId={user.id}
                   size="icon-lg"
                 />
               ) : (
                 <Button
                   variant="ghost"
                   size="icon-lg"
-                  onClick={() => router.push(`/auth/login?redirect=${pathname}`)}
+                  onClick={() =>
+                    router.push(`/auth/login?redirect=${pathname}`)
+                  }
                 >
                   <Bookmark className="h-8 w-8" fill="none" />
                 </Button>
@@ -127,9 +127,7 @@ export default function CafeDetailsClient({
                   />{" "}
                   Seating
                 </span>
-                <Badge className="text-lg px-3 py-1">
-                  {shop.seating}
-                </Badge>
+                <Badge className="text-lg px-3 py-1">{shop.seating}</Badge>
               </div>
             )}
             {shop.parking && (
@@ -143,9 +141,7 @@ export default function CafeDetailsClient({
                   />{" "}
                   Parking
                 </span>
-                <Badge className="text-lg px-3 py-1">
-                  {shop.parking}
-                </Badge>
+                <Badge className="text-lg px-3 py-1">{shop.parking}</Badge>
               </div>
             )}
 
@@ -159,9 +155,7 @@ export default function CafeDetailsClient({
                 />{" "}
                 WiFi
               </span>
-              <Badge
-                className="text-lg px-3 py-1"
-              >
+              <Badge className="text-lg px-3 py-1">
                 {shop.has_wifi ? "Yes" : "No"}
               </Badge>
             </div>
@@ -175,9 +169,7 @@ export default function CafeDetailsClient({
                 />{" "}
                 Outlets
               </span>
-              <Badge
-                className="text-lg px-3 py-1"
-              >
+              <Badge className="text-lg px-3 py-1">
                 {shop.has_outlets ? "Yes" : "No"}
               </Badge>
             </div>
@@ -191,9 +183,7 @@ export default function CafeDetailsClient({
                 />{" "}
                 Laptop Friendly
               </span>
-              <Badge
-                className="text-lg px-3 py-1"
-              >
+              <Badge className="text-lg px-3 py-1">
                 {shop.is_laptop_friendly ? "Yes" : "No"}
               </Badge>
             </div>
