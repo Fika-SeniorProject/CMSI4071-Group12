@@ -18,16 +18,15 @@ jest.mock("@/app/actions", () => ({
   unsaveCafe: jest.fn().mockResolvedValue({ success: true }),
 }));
 
+const mockPush = jest.fn();
 // Mock the next/navigation module
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: mockPush,
     refresh: jest.fn(),
   }),
   usePathname: () => "/",
 }));
-
-
 
 describe("SaveButton", () => {
   it("renders with the correct initial state (saved)", () => {
@@ -35,13 +34,6 @@ describe("SaveButton", () => {
     render(<SaveButton shopId={1} isInitiallySaved={true} />);
     const icon = screen.getByTestId("bookmark-icon");
     expect(icon).toHaveAttribute("fill", "black");
-  });
-
-  it("renders with the correct initial state (saved, after hours)", () => {
-    (useTheme as jest.Mock).mockReturnValue({ isAfterHours: true });
-    render(<SaveButton shopId={1} isInitiallySaved={true} />);
-    const icon = screen.getByTestId("bookmark-icon");
-    expect(icon).toHaveAttribute("fill", "white");
   });
 
   it("renders with the correct initial state (not saved)", () => {
@@ -71,5 +63,55 @@ describe("SaveButton", () => {
     await waitFor(() => {
       expect(saveCafe).toHaveBeenCalledWith(1);
     });
+  });
+
+  it("icon becomes filled on successful save", async () => {
+    (useTheme as jest.Mock).mockReturnValue({ isAfterHours: false });
+    render(<SaveButton shopId={1} isInitiallySaved={false} />);
+    const button = screen.getByRole("button");
+    const icon = screen.getByTestId("bookmark-icon");
+
+    expect(icon).toHaveAttribute("fill", "none");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(icon).toHaveAttribute("fill", "black");
+    });
+  });
+
+  it("icon becomes unfilled on successful unsave", async () => {
+    (useTheme as jest.Mock).mockReturnValue({ isAfterHours: false });
+    render(<SaveButton shopId={1} isInitiallySaved={true} />);
+    const button = screen.getByRole("button");
+    const icon = screen.getByTestId("bookmark-icon");
+
+    expect(icon).toHaveAttribute("fill", "black");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(icon).toHaveAttribute("fill", "none");
+    });
+  });
+
+  it("redirects to login when not logged in", async () => {
+    (saveCafe as jest.Mock).mockResolvedValueOnce({
+      success: false,
+      message: "User not found",
+    });
+
+    render(<SaveButton shopId={1} isInitiallySaved={false} />);
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledWith("/auth/login?redirect=/");
+    });
+  });
+
+  it("icon fill is white when saved and isAfterHours is true", () => {
+    (useTheme as jest.Mock).mockReturnValue({ isAfterHours: true });
+    render(<SaveButton shopId={1} isInitiallySaved={true} />);
+    const icon = screen.getByTestId("bookmark-icon");
+    expect(icon).toHaveAttribute("fill", "white");
   });
 });
