@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Footer } from "@/components/footer";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
@@ -10,10 +9,10 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { User, Bookmark, History } from "lucide-react"; // Added History icon
+import { User } from "lucide-react"; // Added History icon
 import { getSavedCafes, getVisitedCafes } from "@/app/actions"; // Import server actions
-import { UserSavedCafe, UserVisit } from "@/lib/types"; // Import new types
-import { SaveButton } from "@/components/save-button";
+
+import { ProfileCafes } from "@/components/profile-cafes";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -51,7 +50,7 @@ export default async function ProfilePage() {
           <h1 className="text-4xl md:text-5xl font-bold font-kate">
             {name}&apos;s Profile
           </h1>
-          <p className="mt-2 text-lg text-gray-600 font-kate">
+          <p className="mt-2 text-lg text-gray-600">
             Welcome to your personal fika space.
           </p>
         </div>
@@ -59,7 +58,7 @@ export default async function ProfilePage() {
         <div className="space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-kate">
+              <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5" />
                 Account Information
               </CardTitle>
@@ -77,115 +76,10 @@ export default async function ProfilePage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-kate">
-                <Bookmark className="h-5 w-5" />
-                Your Saved Cafes
-              </CardTitle>
-              <CardDescription>
-                Cafes you&apos;ve marked as favorites for later.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {savedCafes && savedCafes.length > 0 ? (
-                <div className="space-y-4">
-                  {savedCafes.map((savedCafe: UserSavedCafe) => {
-                    const cafeName =
-                      savedCafe.coffee_shops?.name || "Unknown Cafe";
-
-                    return (
-                      <div
-                        key={savedCafe.coffee_shop_id}
-                        className="flex justify-between items-center border-b pb-2 last:border-b-0"
-                      >
-                        <div className="flex flex-col">
-                          <Link
-                            href={`/cafe/${savedCafe.coffee_shop_id}`}
-                            className="font-semibold text-primary hover:underline"
-                          >
-                            {cafeName}
-                          </Link>
-                          <span className="text-xs text-muted-foreground">
-                            Saved on{" "}
-                            {new Date(
-                              savedCafe.saved_at || ""
-                            ).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <SaveButton
-                          shopId={savedCafe.coffee_shop_id}
-                          isInitiallySaved={true}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-center py-6">
-                  <p className="text-muted-foreground mb-4">
-                    You haven&apos;t saved any cafes yet!
-                  </p>
-                  <Button asChild>
-                    <Link href="/discover">Find Cafes to Save</Link>
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-kate">
-                <History className="h-5 w-5" /> {/* Changed icon to History */}
-                Your Visited Cafes
-              </CardTitle>
-              <CardDescription>
-                A history of cafes you&apos;ve visited.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {visitedCafes && visitedCafes.length > 0 ? (
-                <div className="space-y-4">
-                  {visitedCafes.map((visitedCafe: UserVisit) => {
-                    const cafeName =
-                      visitedCafe.coffee_shops?.name || "Unknown Cafe";
-
-                    return (
-                      <div
-                        key={visitedCafe.id} // Use the visit ID as key
-                        className="flex justify-between items-center border-b pb-2 last:border-b-0"
-                      >
-                        <div className="flex flex-col">
-                          <Link
-                            href={`/cafe/${visitedCafe.coffee_shop_id}`}
-                            className="font-semibold text-primary hover:underline"
-                          >
-                            {cafeName}
-                          </Link>
-                          <span className="text-xs text-muted-foreground">
-                            Visited on{" "}
-                            {new Date(
-                              visitedCafe.visited_at || ""
-                            ).toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-center py-6">
-                  <p className="text-muted-foreground mb-4">
-                    You haven&apos;t logged any visits yet!
-                  </p>
-                  <Button asChild>
-                    <Link href="/discover">Log a Visit</Link>
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <ProfileCafes
+            savedCafes={savedCafes || []}
+            visitedCafes={visitedCafes || []}
+          />
         </div>
       </div>
       <Footer />

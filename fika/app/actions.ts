@@ -105,7 +105,8 @@ export async function getSavedCafes(): Promise<UserSavedCafe[] | null> {
   const { data, error } = await supabase
     .from("user_saved_cafes")
     .select("*, coffee_shops(*)") // Select all from user_saved_cafes and join coffee_shops
-    .eq("profile_id", user.id);
+    .eq("profile_id", user.id)
+    .order("saved_at", { ascending: false });
 
   if (error) {
     return null;
@@ -170,7 +171,8 @@ export async function getVisitedCafes(): Promise<UserVisit[] | null> {
   const { data, error } = await supabase
     .from("user_visits")
     .select("*, coffee_shops(*)") // Select all from user_visits and join coffee_shops
-    .eq("profile_id", user.id);
+    .eq("profile_id", user.id)
+    .order("visited_at", { ascending: false });
 
   if (error) {
     return null;
